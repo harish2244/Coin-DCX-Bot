@@ -66,8 +66,8 @@ else:
     st.caption("Read-only public endpoints. Prices/candles are market data, not an order connection.")
     left, right = st.columns([1, 2])
     margin_currency = left.selectbox("Instrument list margin mode", ["USDT", "INR"], index=0)
-    resolution_label = right.selectbox("Candle interval", ["1 minute", "5 minutes", "1 hour"], index=1)
-    resolution = {"1 minute": "1", "5 minutes": "5", "1 hour": "60"}[resolution_label]
+    resolution_label = right.selectbox("Candle interval", ["1 minute", "5 minutes"], index=1)
+    resolution = {"1 minute": "1", "5 minutes": "5"}[resolution_label]
     lookback = st.slider("Candle lookback (minutes)", min_value=60, max_value=1440, value=360, step=60)
     if st.button("Refresh public market data"):
         st.cache_data.clear()
