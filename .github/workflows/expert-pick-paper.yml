@@ -1,0 +1,44 @@
+name: Expert Pick Paper Trader
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "bot/expert_pick_paper_runner.py"
+      - "bot/regime_strategy.py"
+      - "bot/coindcx_public.py"
+      - ".github/workflows/expert-pick-paper.yml"
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+concurrency:
+  group: expert-pick-paper-trader
+  cancel-in-progress: true
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Monitor Expert Picks and simulate paper entries/exits
+        run: python -m bot.expert_pick_paper_runner
+      - name: Persist paper ledger and report
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/expert_pick_paper.sqlite3 docs/data/expert-pick-paper-trades.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Update Expert Pick paper-trading ledger"
+            git push origin HEAD:main
+          fi
