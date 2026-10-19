@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-19",
+  "updated_at": "2026-10-19T02:40:00Z",
   "source": "Manually transcribed from user-provided CoinDCX Expert Picks screenshots",
   "note": "Captured picks only. Prices are screenshot observations, not live quotes. No trades have been opened from these records. Confirm instruments and live price feed before automated monitoring.",
   "picks": [
@@ -19,7 +19,11 @@
       "category": "Global",
       "status": "CAPTURED_NEEDS_INSTRUMENT_MAPPING",
       "entry_range_currently_reached": false,
-      "notes": "Screenshot LTP 64,603 was above the entry range 63,450–64,400. Validity ends 19 Oct 2026; verify provider timezone and current call status before any action."
+      "notes": "Screenshot LTP 64,603 was above the entry range 63,450–64,400. Validity ends 19 Oct 2026; verify provider timezone and current call status before any action. Monitoring is not active for this pick because its CoinDCX market symbol/feed has not been verified; no entry/exit or P&L has been fabricated.",
+      "monitoring_status": "NOT_MONITORED",
+      "trade_status": "NO_TRADE_RECORDED",
+      "live_price": null,
+      "last_checked_at": null
     },
     {
       "pick_id": "marketwind-xau-2026-10-19",
@@ -37,7 +41,13 @@
       "category": "Crypto (as labelled in app screenshot)",
       "status": "CAPTURED_NEEDS_INSTRUMENT_MAPPING",
       "entry_range_currently_reached": null,
-      "notes": "Entry range interpreted as 4,181–4,244 for the SHORT call. LTP 4,161.24 was visible in an earlier screenshot; it is not a live quote. Confirm units/contract and current provider status."
+      "notes": "Entry range interpreted as 4,181–4,244 for the SHORT call. LTP 4,161.24 was visible in an earlier screenshot; it is not a live quote. Confirm units/contract and current provider status. Monitoring is not active for this pick because its CoinDCX market symbol/feed has not been verified; no entry/exit or P&L has been fabricated.",
+      "monitoring_status": "NOT_MONITORED",
+      "trade_status": "NO_TRADE_RECORDED",
+      "live_price": null,
+      "last_checked_at": null
     }
-  ]
+  ],
+  "monitoring_status": "NOT_YET_LIVE_MONITORED",
+  "monitoring_note": "Verified against repository code and GitHub Actions history on 2026-10-19: the hosted runner still processes only B-BTC_USDT and B-ETH_USDT technical-model signals. It does not fetch or evaluate the Expert Picks listed here. No Expert Pick trades have been executed or recorded; do not infer trade outcomes from screenshot prices."
 }
