@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-19T14:35:50.288262+00:00",
+  "updated_at": "2026-10-19T20:10:29.157589+00:00",
   "mode": "PAPER ONLY \u2014 no live orders",
   "starting_equity_inr": 10000.0,
   "risk_per_trade_inr": 50.0,
@@ -15,7 +15,7 @@
     "directional_signals": 0,
     "signals_matching_pick": 0,
     "paper_entries_total": 0,
-    "last_run_at": "2026-10-19T14:35:50.288262+00:00",
+    "last_run_at": "2026-10-19T20:10:29.157589+00:00",
     "scheduled_interval_minutes": 5
   },
   "net_realized_pnl_inr": 0.0,
@@ -28,7 +28,7 @@
       "symbol": "B-SOL_USDT",
       "side": "LONG",
       "entry_range": "104.46\u2013105.51",
-      "live_price": 103.81,
+      "live_price": 104.28,
       "stop": 103.68,
       "target": 106.69,
       "valid_until": "2026-10-23",
@@ -36,9 +36,9 @@
       "model_regime": "SKIP",
       "model_reason": "Volatility or volume outside configured safety bounds",
       "model_metrics": {
-        "adx14": 12.684265548611538,
-        "atr_pct": 0.18442365317792664,
-        "relative_volume": 0.6779324670344149
+        "adx14": 23.79230121242476,
+        "atr_pct": 0.09638279120237113,
+        "relative_volume": 0.23046492996226353
       },
       "pick_direction": "LONG",
       "price_in_entry_range": false,
@@ -59,7 +59,7 @@
       "exit_price": null,
       "exit_reason": null,
       "net_pnl_inr": null,
-      "note": "Live price 103.81 outside entry range."
+      "note": "Live price 104.28 outside entry range."
     },
     {
       "pick_id": "nikkei-2026-10-15",
@@ -102,17 +102,17 @@
       "symbol": "B-COPPER_USDT",
       "side": "LONG",
       "entry_range": "6.475\u20136.54",
-      "live_price": 6.556,
+      "live_price": 6.595,
       "stop": 6.385,
       "target": 6.666,
       "valid_until": "2026-10-20",
       "model_decision": "SKIP",
-      "model_regime": "UNCLEAR",
-      "model_reason": "Regime is mixed; conservative no-trade rule applied",
+      "model_regime": "SKIP",
+      "model_reason": "Volatility or volume outside configured safety bounds",
       "model_metrics": {
-        "adx14": 18.668726343896328,
-        "atr_pct": 0.04044736275174532,
-        "relative_volume": 3.0119583178291975
+        "adx14": 40.6959334498472,
+        "atr_pct": 0.012575698184353043,
+        "relative_volume": 0.09960731730677137
       },
       "pick_direction": "LONG",
       "price_in_entry_range": false,
@@ -133,7 +133,7 @@
       "exit_price": null,
       "exit_reason": null,
       "net_pnl_inr": null,
-      "note": "Live price 6.556 outside entry range."
+      "note": "Live price 6.595 outside entry range."
     },
     {
       "pick_id": "cl-2026-10-19",
@@ -141,17 +141,17 @@
       "symbol": "B-CL_USDT",
       "side": "SHORT",
       "entry_range": "96.99\u201397.91",
-      "live_price": 97.98,
+      "live_price": 98.47,
       "stop": 98.62,
       "target": 95.92,
       "valid_until": "2026-10-23",
       "model_decision": "SKIP",
-      "model_regime": "UNCLEAR",
-      "model_reason": "Regime is mixed; conservative no-trade rule applied",
+      "model_regime": "SKIP",
+      "model_reason": "Volatility or volume outside configured safety bounds",
       "model_metrics": {
-        "adx14": 21.226037537390866,
-        "atr_pct": 0.09467523583698209,
-        "relative_volume": 0.924873154846483
+        "adx14": 17.687374685280485,
+        "atr_pct": 0.04172577943652301,
+        "relative_volume": 0.06836600094101199
       },
       "pick_direction": "SHORT",
       "price_in_entry_range": false,
@@ -172,7 +172,7 @@
       "exit_price": null,
       "exit_reason": null,
       "net_pnl_inr": null,
-      "note": "Live price 97.98 outside entry range."
+      "note": "Live price 98.47 outside entry range."
     },
     {
       "pick_id": "xau-2026-10-18",
@@ -180,7 +180,7 @@
       "symbol": "B-XAU_USDT",
       "side": "SHORT",
       "entry_range": "4181\u20134244",
-      "live_price": 4153.84,
+      "live_price": 4148.12,
       "stop": 4291,
       "target": 4110.45,
       "valid_until": "2026-10-23",
@@ -188,9 +188,9 @@
       "model_regime": "SKIP",
       "model_reason": "Volatility or volume outside configured safety bounds",
       "model_metrics": {
-        "adx14": 14.388690185470127,
-        "atr_pct": 0.044569522371441565,
-        "relative_volume": 0.5966298624833835
+        "adx14": 16.852689257303883,
+        "atr_pct": 0.013024172399885955,
+        "relative_volume": 0.5771586872564716
       },
       "pick_direction": "SHORT",
       "price_in_entry_range": false,
@@ -211,7 +211,7 @@
       "exit_price": null,
       "exit_reason": null,
       "net_pnl_inr": null,
-      "note": "Live price 4153.84 outside entry range."
+      "note": "Live price 4148.12 outside entry range."
     }
   ],
   "trades": []
