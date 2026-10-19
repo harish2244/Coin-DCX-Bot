@@ -51,6 +51,7 @@ jobs:
           git add data/live_paper_trades.sqlite3 docs/data/dashboard.json
           if ! git diff --cached --quiet; then
             git commit -m "Update hosted paper-trading records"
+            git pull --rebase origin main
             git push origin HEAD:main
           fi
       - name: Configure GitHub Pages
