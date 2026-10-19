@@ -25,10 +25,10 @@ def _get_json(url: str, params: dict[str, Any] | None = None) -> Any:
 
 
 def get_active_futures_instruments(margin_currency: str = "USDT") -> list[str]:
-    """Return active futures pair IDs. No API key or trading permission is used."""
+    """Return active futures pair IDs. Public market data only; never places orders."""
     margin = margin_currency.upper()
-    if margin not in {"USDT", "INR"}:
-        raise ValueError("margin_currency must be USDT or INR")
+    if margin not in {"USDT", "USDC", "INR"}:
+        raise ValueError("margin_currency must be USDT, USDC, or INR")
     payload = _get_json(
         f"{API_URL}/exchange/v1/derivatives/futures/data/active_instruments",
         params={"margin_currency_short_name[]": margin},
@@ -45,7 +45,6 @@ def get_futures_current_prices() -> dict[str, Any]:
         raise CoinDCXPublicAPIError("Unexpected futures current-prices response format")
     if isinstance(payload.get("prices"), dict):
         return payload
-    # Some public responses expose the symbol-to-price map directly.
     if payload and all(isinstance(v, dict) for v in payload.values()):
         return {"prices": payload}
     raise CoinDCXPublicAPIError(f"Unexpected futures current-prices fields: {list(payload)[:12]}")
@@ -59,18 +58,12 @@ def get_futures_candles(pair: str, resolution: str = "1", lookback_minutes: int 
         raise ValueError("resolution must be one of: 1, 5, 60, 1D")
     if not 60 <= int(lookback_minutes) <= 10000:
         raise ValueError("lookback_minutes must be between 60 and 10000")
-
     now = datetime.now(timezone.utc)
     start = now - timedelta(minutes=int(lookback_minutes))
     payload = _get_json(
         f"{BASE_URL}/market_data/candlesticks",
-        params={
-            "pair": pair,
-            "from": int(start.timestamp()),
-            "to": int(now.timestamp()),
-            "resolution": resolution,
-            "pcode": "f",
-        },
+        params={"pair": pair, "from": int(start.timestamp()), "to": int(now.timestamp()),
+                "resolution": resolution, "pcode": "f"},
     )
     if isinstance(payload, dict):
         rows = payload.get("data")
