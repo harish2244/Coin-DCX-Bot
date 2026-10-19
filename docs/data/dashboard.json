@@ -1,12 +1,12 @@
 {
-  "updated_at": "2026-10-19T02:01:25.031330+00:00",
+  "updated_at": "2026-10-19T02:02:08.844976+00:00",
   "status": {
     "ok": false,
     "message": "Completed with errors",
     "processed_candles": 0,
     "errors": [
-      "B-BTC_INR: CoinDCXPublicAPIError: Unexpected futures-candles response format",
-      "B-ETH_INR: CoinDCXPublicAPIError: Unexpected futures-candles response format"
+      "B-BTC_INR: CoinDCXPublicAPIError: CoinDCX candle API status for B-BTC_INR: 'no_data'",
+      "B-ETH_INR: CoinDCXPublicAPIError: CoinDCX candle API status for B-ETH_INR: 'no_data'"
     ]
   },
   "mode": "PAPER ONLY",
