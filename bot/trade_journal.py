@@ -90,9 +90,10 @@ class TradeJournal:
             win_rate = wins / len(closed) * 100
             profit_factor = gross_profit / gross_loss if gross_loss > 0 else (float("inf") if gross_profit > 0 else 0.0)
             expectancy = net / len(closed)
-            equity_curve = float(starting_equity) + pnl.iloc[::-1].cumsum()
+            chronological_pnl = pnl.iloc[::-1].reset_index(drop=True)
+            equity_curve = float(starting_equity) + chronological_pnl.cumsum()
             peak = equity_curve.cummax()
-            drawdown = ((peak - equity_curve) / peak.replace(0, pd.NA) * 100).fillna(0)
+            drawdown = ((peak - equity_curve) / peak.where(peak != 0) * 100).fillna(0)
             max_drawdown_pct = float(drawdown.max()) if not drawdown.empty else 0.0
         else:
             wins = losses = 0
