@@ -16,11 +16,15 @@ from bot.trade_journal import TradeJournal
 
 DB_PATH = Path("data/live_paper_trades.sqlite3")
 OUTPUT_PATH = Path("docs/data/dashboard.json")
-STARTING_EQUITY = 10_000.0
+STARTING_EQUITY_INR = 10_000.0
+INR_PER_USDT_ESTIMATE = 88.0
+STARTING_EQUITY_USDT = STARTING_EQUITY_INR / INR_PER_USDT_ESTIMATE
 RISK_PCT = 0.5
 LEVERAGE = 3.0
-DAILY_LOSS_LIMIT = 200.0
-SYMBOLS = ["B-BTC_INR", "B-ETH_INR"]
+DAILY_LOSS_LIMIT_INR = 200.0
+DAILY_LOSS_LIMIT_USDT = DAILY_LOSS_LIMIT_INR / INR_PER_USDT_ESTIMATE
+# CoinDCX futures pair IDs are quoted in USDT even when INR margin mode is selected.
+SYMBOLS = ["B-BTC_USDT", "B-ETH_USDT"]
 LOOKBACK_MINUTES = 1440
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
 
@@ -51,22 +55,31 @@ def export_dashboard(engine: PersistentPaperEngine, journal: TradeJournal, statu
         ).to_dict(orient="records")
         total_signals = int(db.execute("SELECT COUNT(*) FROM signal_events").fetchone()[0])
         confirmed_signals = int(db.execute("SELECT COUNT(*) FROM signal_events WHERE confirmed=1").fetchone()[0])
-    summary = journal.summary(STARTING_EQUITY)
+    summary = journal.summary(STARTING_EQUITY_USDT)
     summary["signals"] = total_signals
     summary["confirmed_signals"] = confirmed_signals
     engine_summary = engine.summary()
-    summary["daily_net_pnl"] = engine_summary["daily_net_pnl"]
+    summary["daily_net_pnl"] = engine_summary["daily_net_pnl"] * INR_PER_USDT_ESTIMATE
     summary["daily_stop_hit"] = engine_summary["daily_stop_hit"]
-    summary["starting_equity"] = STARTING_EQUITY
-    summary["equity_estimate"] = STARTING_EQUITY + float(summary["net_pnl"])
+    summary["starting_equity"] = STARTING_EQUITY_INR
+    for key in ("gross_profit", "gross_loss", "net_pnl", "expectancy"):
+        summary[key] = float(summary[key]) * INR_PER_USDT_ESTIMATE
+    summary["equity_estimate"] = STARTING_EQUITY_INR + float(summary["net_pnl"])
+    for trade in trades:
+        for key in ("gross_pnl", "costs", "net_pnl"):
+            if trade[key] is not None:
+                trade[key] = float(trade[key]) * INR_PER_USDT_ESTIMATE
     payload = {
         "updated_at": datetime.now(timezone.utc).isoformat(),
         "status": status,
         "mode": "PAPER ONLY",
         "settings": {
-            "symbols": SYMBOLS, "starting_equity_inr": STARTING_EQUITY,
+            "symbols": SYMBOLS, "starting_equity_inr": STARTING_EQUITY_INR,
             "planned_risk_pct": RISK_PCT, "leverage_cap": LEVERAGE,
-            "daily_loss_stop_inr": DAILY_LOSS_LIMIT, "schedule": "Every 5 minutes (GitHub Actions)",
+            "daily_loss_stop_inr": DAILY_LOSS_LIMIT_INR,
+            "schedule": "Every 5 minutes (GitHub Actions)",
+            "margin_mode": "INR-margin futures; USDT-quoted pair prices",
+            "conversion_note": f"Fixed estimate: ₹{INR_PER_USDT_ESTIMATE:.2f} per USDT; not a live FX quote",
         },
         "summary": summary,
         "signals": [{k: (bool(v) if k == "confirmed" else safe_number(v) if k in {"price","rsi","adx","atr_pct","relative_volume"} else v) for k,v in row.items()} for row in signals],
@@ -78,8 +91,8 @@ def export_dashboard(engine: PersistentPaperEngine, journal: TradeJournal, statu
 def main() -> None:
     DB_PATH.parent.mkdir(parents=True, exist_ok=True)
     engine = PersistentPaperEngine(
-        db_path=DB_PATH, starting_equity=STARTING_EQUITY, risk_pct=RISK_PCT,
-        leverage=LEVERAGE, daily_loss_limit=DAILY_LOSS_LIMIT,
+        db_path=DB_PATH, starting_equity=STARTING_EQUITY_USDT, risk_pct=RISK_PCT,
+        leverage=LEVERAGE, daily_loss_limit=DAILY_LOSS_LIMIT_USDT,
     )
     journal = TradeJournal(DB_PATH)
     status = {"ok": True, "message": "Scheduled run started", "processed_candles": 0, "errors": []}
@@ -100,14 +113,12 @@ def main() -> None:
                 if pd.notna(last_seen):
                     new_indices = [i for i, ts in enumerate(candles["timestamp"]) if ts > last_seen]
                 else:
-                    # Bootstrap the paper ledger from a recent, bounded warm-up window.
                     new_indices = list(range(max(60, len(candles) - 120), len(candles)))
                 new_indices = [i for i in new_indices if i >= 60]
                 if not new_indices:
                     logging.info("%s: no new completed candles", symbol)
                     continue
 
-                # Compute the previous candle's signal once; each signal can enter only on the next candle open.
                 first_i = new_indices[0]
                 pending_raw, pending_model = assess(candles.iloc[:first_i].reset_index(drop=True), symbol)
                 for i in new_indices:
@@ -118,7 +129,7 @@ def main() -> None:
                         timestamp=candle_time,
                     )
                     if closed:
-                        logging.info("%s paper close: %s net=%.2f", symbol, closed["exit_reason"], closed["net_pnl"])
+                        logging.info("%s paper close: %s net=%.4f USDT", symbol, closed["exit_reason"], closed["net_pnl"])
 
                     prior_side = str(pending_raw.get("decision", "SKIP")).upper()
                     prior_model_side = str(pending_model.get("decision", "SKIP")).upper()
