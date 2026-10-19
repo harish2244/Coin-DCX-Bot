@@ -172,7 +172,7 @@ def main():
           "valid_until":p["valid"],"model_decision":model_decision,"model_regime":model_regime,
           "model_reason":model_reason,"model_metrics":model_metrics,
           "pick_direction":p["side"],"price_in_entry_range":bool(price is not None and p["low"]<=price<=p["high"]),
-          "paper_status":state,
+          "paper_status":state,"signal_stage":state,"entry_checks":{"signal_detected":model_decision in {"LONG","SHORT"},"direction_matches":model_decision==p["side"],"price_in_range":bool(price is not None and p["low"]<=price<=p["high"]),"paper_opened":state=="PAPER_OPEN"},
           "price_data_status":"OK" if price is not None else ("UNMAPPED" if not symbol else "NO_PRICE"),
           "candle_data_status":"OK" if model_decision != "UNKNOWN" else ("ERROR_OR_NOT_CHECKED" if symbol else "UNMAPPED"),
           "signal_detected":model_decision in {"LONG","SHORT"},
