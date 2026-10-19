@@ -41,5 +41,5 @@ jobs:
           if ! git diff --cached --quiet; then
             git commit -m "Update Expert Pick paper-trading ledger"
             git pull --rebase origin main
-          git push origin HEAD:main
+            git push origin HEAD:main
           fi
