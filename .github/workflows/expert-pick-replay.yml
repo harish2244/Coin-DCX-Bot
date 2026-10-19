@@ -1,0 +1,42 @@
+name: Expert Pick Historical Replay
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "bot/expert_pick_replay.py"
+      - "bot/regime_strategy.py"
+      - "bot/coindcx_public.py"
+      - ".github/workflows/expert-pick-replay.yml"
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Replay published Expert Picks over available historical candles
+        run: python -m bot.expert_pick_replay
+      - name: Save replay report
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/data/expert-pick-replay.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Update Expert Pick historical replay report"
+            git push origin HEAD:main
+          fi
