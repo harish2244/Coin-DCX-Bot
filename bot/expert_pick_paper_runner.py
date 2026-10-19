@@ -97,7 +97,7 @@ def main():
                                (p["stop"],now.isoformat(),symbol,price)) if False else None
                     # Manage open position from the latest completed candle, stop first.
                     open_row=db.execute("SELECT * FROM expert_trades WHERE status='OPEN' LIMIT 1").fetchone()
-                    if open_row:
+                    if open_row and open_row["symbol"] == symbol:
                         last=candles.iloc[-1]
                         hi,lo=float(last.high),float(last.low)
                         reason=("STOP" if (lo<=open_row["stop"] if open_row["side"]=="LONG" else hi>=open_row["stop"]) else
