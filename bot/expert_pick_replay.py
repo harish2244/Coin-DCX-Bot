@@ -21,12 +21,22 @@ SLIPPAGE_RATE = 0.0005
 MIN_REWARD_RISK = 1.2
 
 PICKS = [
+    {"instrument": "SOL", "direction": "LONG", "low": 104.46, "high": 105.51,
+     "stop": 103.68, "target": 106.69, "valid": "2026-10-23",
+     "start": "2026-10-19T06:40:00Z", "leverage_display": "15x", "terms": ["SOL"]},
     {"instrument": "Nikkei225", "direction": "LONG", "low": 63450.0, "high": 64400.0,
      "stop": 62200.0, "target": 66168.0, "valid": "2026-10-19",
+     "start": "2026-10-15T15:40:00Z", "leverage_display": "8x",
      "terms": ["NIKKEI", "JPN225", "JP225", "NI225"]},
+    {"instrument": "COPPER", "direction": "LONG", "low": 6.475, "high": 6.54,
+     "stop": 6.385, "target": 6.666, "valid": "2026-10-20",
+     "start": "2026-10-19T00:00:00Z", "leverage_display": "10x", "terms": ["COPPER", "CU"]},
+    {"instrument": "CL", "direction": "SHORT", "low": 96.99, "high": 97.91,
+     "stop": 98.62, "target": 95.92, "valid": "2026-10-23",
+     "start": "2026-10-19T07:05:00Z", "leverage_display": "15x", "terms": ["CL", "CRUDEOIL", "WTI"]},
     {"instrument": "XAU", "direction": "SHORT", "low": 4181.0, "high": 4244.0,
      "stop": 4291.0, "target": 4110.45, "valid": "2026-10-23",
-     "terms": ["XAU", "GOLD", "XAUUSD"]},
+     "start": "2026-10-18T00:00:00Z", "leverage_display": "11x", "terms": ["XAU", "GOLD", "XAUUSD"]},
 ]
 
 
@@ -64,7 +74,8 @@ def _pnl_for_trade(pick: dict, side: str, entry_raw: float, exit_raw: float,
 
 def _replay_pick(pick: dict, pair: str, df: pd.DataFrame) -> dict:
     end = pd.Timestamp(pick["valid"] + "T23:59:59Z")
-    df = df[(df.timestamp >= START) & (df.timestamp <= end)].copy().reset_index(drop=True)
+    pick_start = pd.Timestamp(pick.get("start", START))
+    df = df[(df.timestamp >= pick_start) & (df.timestamp <= end)].copy().reset_index(drop=True)
     if len(df) < 70:
         return {"instrument": pick["instrument"], "pair": pair, "status": "INSUFFICIENT_HISTORY",
                 "candles_checked": len(df), "message": "Not enough 1-minute candles inside the pick validity window."}
@@ -151,7 +162,7 @@ def _replay_pick(pick: dict, pair: str, df: pd.DataFrame) -> dict:
     gross_loss = -sum(t["net_pnl_inr_estimate"] for t in losses)
     return {
         "instrument": pick["instrument"], "pair": pair, "status": "REPLAYED",
-        "window_start": str(START), "window_end": end.isoformat(), "candles_checked": len(df),
+        "window_start": str(pick_start), "window_end": end.isoformat(), "candles_checked": len(df),
         "range_touch_candles": range_touches, "raw_directional_signals": raw_signals,
         "range_touch_plus_model_confirmations": confirmations, "reward_risk_rejections": eligible_rr_skips,
         "entry_count": entries_count, "closed_trade_count": len(closed),
