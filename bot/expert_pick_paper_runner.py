@@ -29,6 +29,7 @@ PICKS = [
     {"id":"cl-2026-10-19","instrument":"CL","side":"SHORT","low":96.99,"high":97.91,"stop":98.62,"target":95.92,"valid":"2026-10-23","symbol_terms":["B-CL_USDT"]},
     {"id":"xau-2026-10-18","instrument":"XAU","side":"SHORT","low":4181,"high":4244,"stop":4291,"target":4110.45,"valid":"2026-10-23","symbol_terms":["B-XAU_USDT"]},
 ]
+# Heartbeat marker: keep this worker file on the monitored workflow path.
 def now_utc(): return datetime.now(timezone.utc)
 def connect():
     DB.parent.mkdir(parents=True, exist_ok=True)
