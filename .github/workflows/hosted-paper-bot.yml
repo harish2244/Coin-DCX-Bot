@@ -1,0 +1,64 @@
+name: Hosted CoinDCX Paper Trader
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "bot/hosted_paper_runner.py"
+      - "bot/paper_engine.py"
+      - "bot/trade_journal.py"
+      - "bot/regime_strategy.py"
+      - "bot/strategy.py"
+      - "bot/indicators.py"
+      - "bot/coindcx_public.py"
+      - ".github/workflows/hosted-paper-bot.yml"
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: hosted-paper-trader
+  cancel-in-progress: false
+
+jobs:
+  monitor-and-publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout repository and restore paper ledger
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Run scheduled signal and paper-trade monitor
+        run: python -m bot.hosted_paper_runner
+      - name: Persist SQLite ledger and dashboard snapshot
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/live_paper_trades.sqlite3 docs/data/dashboard.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Update hosted paper-trading records"
+            git push origin HEAD:main
+          fi
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+      - name: Upload dashboard website
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs
+      - name: Publish dashboard website
+        id: deployment
+        uses: actions/deploy-pages@v4
