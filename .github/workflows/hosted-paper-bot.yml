@@ -55,11 +55,15 @@ jobs:
             git push origin HEAD:main
           fi
       - name: Configure GitHub Pages
+        id: pages
         uses: actions/configure-pages@v5
+        continue-on-error: true
       - name: Upload dashboard website
+        if: steps.pages.outcome == 'success'
         uses: actions/upload-pages-artifact@v3
         with:
           path: docs
       - name: Publish dashboard website
+        if: steps.pages.outcome == 'success'
         id: deployment
         uses: actions/deploy-pages@v4
