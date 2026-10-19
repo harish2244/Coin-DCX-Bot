@@ -40,5 +40,6 @@ jobs:
           git add data/expert_pick_paper.sqlite3 docs/data/expert-pick-paper-trades.json
           if ! git diff --cached --quiet; then
             git commit -m "Update Expert Pick paper-trading ledger"
-            git push origin HEAD:main
+            git pull --rebase origin main
+          git push origin HEAD:main
           fi
