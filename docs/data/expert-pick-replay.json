@@ -1,0 +1,632 @@
+{
+  "generated_at": "2026-10-19T05:55:07.764064+00:00",
+  "mode": "PAPER_ONLY",
+  "method": "1-minute historical replay; decision uses candles through close; entry at close; exit tested on subsequent candles; stop assumed first if stop and target touch in same candle.",
+  "picks": [
+    {
+      "instrument": "Nikkei225",
+      "status": "BLOCKED_UNVERIFIED_MARKET_ID",
+      "candidate_matches": [],
+      "message": "No unique pair match; no counts fabricated."
+    },
+    {
+      "instrument": "XAU",
+      "pair": "B-XAU_USDT",
+      "status": "REPLAYED",
+      "window_start": "2026-10-15 00:00:00+00:00",
+      "window_end": "2026-10-23T23:59:59+00:00",
+      "candles_checked": 6116,
+      "range_touch_candles": 1043,
+      "raw_directional_signals": 741,
+      "range_touch_plus_model_confirmations": 83,
+      "entry_count": 1,
+      "entries": [
+        {
+          "entry_time": "2026-10-16T04:44:00+00:00",
+          "entry": 4182.01,
+          "side": "SHORT",
+          "stop": 4291.0,
+          "target": 4110.45
+        }
+      ],
+      "exits": [
+        {
+          "entry_time": "2026-10-16T04:44:00+00:00",
+          "entry": 4182.01,
+          "side": "SHORT",
+          "stop": 4291.0,
+          "target": 4110.45,
+          "exit_time": null,
+          "exit_price": null,
+          "exit_reason": "OPEN_AT_END"
+        }
+      ],
+      "closed_exit_count": 0,
+      "open_at_end": 1,
+      "confirmed_signals": [
+        {
+          "time": "2026-10-16T04:44:00+00:00",
+          "close": 4182.01,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-16T04:46:00+00:00",
+          "close": 4181.44,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-16T04:47:00+00:00",
+          "close": 4181.08,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-16T04:48:00+00:00",
+          "close": 4181.71,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-16T04:49:00+00:00",
+          "close": 4180.37,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-16T04:59:00+00:00",
+          "close": 4181.41,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-16T05:01:00+00:00",
+          "close": 4181.88,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-16T05:05:00+00:00",
+          "close": 4181.4,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-16T05:06:00+00:00",
+          "close": 4180.91,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-16T08:06:00+00:00",
+          "close": 4187.81,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-16T08:07:00+00:00",
+          "close": 4188.93,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-16T08:13:00+00:00",
+          "close": 4187.07,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-16T08:14:00+00:00",
+          "close": 4187.92,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-16T08:16:00+00:00",
+          "close": 4185.62,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-16T09:31:00+00:00",
+          "close": 4190.16,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-16T09:37:00+00:00",
+          "close": 4188.96,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-16T09:39:00+00:00",
+          "close": 4188.89,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-16T09:40:00+00:00",
+          "close": 4187.92,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-16T09:44:00+00:00",
+          "close": 4187.08,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-16T09:47:00+00:00",
+          "close": 4188.72,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-16T09:48:00+00:00",
+          "close": 4188.77,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-16T09:52:00+00:00",
+          "close": 4187.67,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-16T09:53:00+00:00",
+          "close": 4186.28,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-16T09:54:00+00:00",
+          "close": 4185.13,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-16T09:58:00+00:00",
+          "close": 4184.28,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-16T10:03:00+00:00",
+          "close": 4183.34,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-16T10:04:00+00:00",
+          "close": 4183.6,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-16T10:05:00+00:00",
+          "close": 4183.94,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-16T10:06:00+00:00",
+          "close": 4182.82,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-16T10:07:00+00:00",
+          "close": 4183.97,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-16T10:08:00+00:00",
+          "close": 4185.18,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-16T10:09:00+00:00",
+          "close": 4185.77,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-16T11:01:00+00:00",
+          "close": 4182.4,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-16T11:03:00+00:00",
+          "close": 4182.61,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-16T11:04:00+00:00",
+          "close": 4183.4,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-16T11:05:00+00:00",
+          "close": 4184.24,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-16T11:07:00+00:00",
+          "close": 4181.76,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-16T11:10:00+00:00",
+          "close": 4180.59,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-16T11:11:00+00:00",
+          "close": 4181.59,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-16T11:13:00+00:00",
+          "close": 4182.94,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-16T11:14:00+00:00",
+          "close": 4182.62,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-16T11:56:00+00:00",
+          "close": 4181.12,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-16T12:02:00+00:00",
+          "close": 4181.57,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-16T12:03:00+00:00",
+          "close": 4181.87,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-16T12:05:00+00:00",
+          "close": 4181.95,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-16T15:15:00+00:00",
+          "close": 4187.18,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-16T15:16:00+00:00",
+          "close": 4187.7,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-16T15:17:00+00:00",
+          "close": 4188.23,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-16T15:18:00+00:00",
+          "close": 4188.37,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-16T15:20:00+00:00",
+          "close": 4185.59,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-16T15:21:00+00:00",
+          "close": 4184.78,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-16T15:23:00+00:00",
+          "close": 4184.38,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-16T15:27:00+00:00",
+          "close": 4184.03,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-16T15:30:00+00:00",
+          "close": 4183.48,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-16T15:32:00+00:00",
+          "close": 4184.29,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-16T15:33:00+00:00",
+          "close": 4184.7,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-16T15:34:00+00:00",
+          "close": 4184.2,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-16T15:36:00+00:00",
+          "close": 4183.82,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-16T15:37:00+00:00",
+          "close": 4183.19,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-16T15:38:00+00:00",
+          "close": 4183.84,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-16T15:39:00+00:00",
+          "close": 4185.09,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-16T15:44:00+00:00",
+          "close": 4180.61,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-16T15:45:00+00:00",
+          "close": 4181.95,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-16T15:49:00+00:00",
+          "close": 4178.98,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-19T00:29:00+00:00",
+          "close": 4182.14,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-19T00:31:00+00:00",
+          "close": 4182.95,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-19T00:33:00+00:00",
+          "close": 4182.19,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-19T00:34:00+00:00",
+          "close": 4181.93,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-19T00:35:00+00:00",
+          "close": 4182.59,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-19T00:37:00+00:00",
+          "close": 4183.5,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-19T00:39:00+00:00",
+          "close": 4181.97,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-19T00:40:00+00:00",
+          "close": 4180.0,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-19T00:41:00+00:00",
+          "close": 4181.85,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-19T00:42:00+00:00",
+          "close": 4181.07,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-19T00:43:00+00:00",
+          "close": 4179.82,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-19T00:53:00+00:00",
+          "close": 4181.14,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-19T01:01:00+00:00",
+          "close": 4178.49,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-19T01:04:00+00:00",
+          "close": 4177.95,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-19T04:18:00+00:00",
+          "close": 4183.78,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-19T04:19:00+00:00",
+          "close": 4183.76,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-19T04:20:00+00:00",
+          "close": 4184.58,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-19T04:31:00+00:00",
+          "close": 4182.72,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        },
+        {
+          "time": "2026-10-19T05:24:00+00:00",
+          "close": 4182.96,
+          "decision": "SHORT",
+          "regime": "TREND",
+          "reason": "Downtrend confirmed; momentum and VWAP filters pass"
+        }
+      ]
+    }
+  ],
+  "overall_status": "PARTIAL_OR_BLOCKED"
+}
