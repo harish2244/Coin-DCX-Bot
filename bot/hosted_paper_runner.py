@@ -33,8 +33,12 @@ def safe_number(value):
         return None
 
 
+def assess(frame: pd.DataFrame, symbol: str) -> tuple[dict, dict]:
+    indicators = add_indicators(frame)
+    return assess_candidate(indicators, symbol, expert_pick=True), assess_regime(frame, symbol, expert_pick=True)
+
+
 def export_dashboard(engine: PersistentPaperEngine, journal: TradeJournal, status: dict) -> None:
-    DB_PATH.parent.mkdir(parents=True, exist_ok=True)
     OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     with journal._connect() as db:
         signals = pd.read_sql_query(
@@ -96,15 +100,17 @@ def main() -> None:
                 if pd.notna(last_seen):
                     new_indices = [i for i, ts in enumerate(candles["timestamp"]) if ts > last_seen]
                 else:
-                    new_indices = list(range(60, len(candles)))
+                    # Bootstrap the paper ledger from a recent, bounded warm-up window.
+                    new_indices = list(range(max(60, len(candles) - 120), len(candles)))
+                new_indices = [i for i in new_indices if i >= 60]
                 if not new_indices:
                     logging.info("%s: no new completed candles", symbol)
                     continue
 
-                # A signal is recorded on its candle and can only enter at the NEXT candle's open.
+                # Compute the previous candle's signal once; each signal can enter only on the next candle open.
+                first_i = new_indices[0]
+                pending_raw, pending_model = assess(candles.iloc[:first_i].reset_index(drop=True), symbol)
                 for i in new_indices:
-                    if i < 60:
-                        continue
                     candle = candles.iloc[i]
                     candle_time = pd.Timestamp(candle["timestamp"]).isoformat()
                     closed = engine.process_candle(
@@ -114,30 +120,23 @@ def main() -> None:
                     if closed:
                         logging.info("%s paper close: %s net=%.2f", symbol, closed["exit_reason"], closed["net_pnl"])
 
-                    # Evaluate the previous candle and enter at this candle's open, after processing existing positions.
-                    if not closed and i >= 61 and not engine.summary()["has_open_position"]:
-                        previous = candles.iloc[:i].reset_index(drop=True)
-                        previous_indicators = add_indicators(previous)
-                        raw_prev = assess_candidate(previous_indicators, symbol, expert_pick=True)
-                        model_prev = assess_regime(previous, symbol, expert_pick=True)
-                        side_prev = str(raw_prev.get("decision", "SKIP")).upper()
-                        model_side_prev = str(model_prev.get("decision", "SKIP")).upper()
-                        if side_prev in {"LONG", "SHORT"} and side_prev == model_side_prev and not engine.summary()["daily_stop_hit"]:
-                            atr = safe_number(model_prev.get("atr14"))
+                    prior_side = str(pending_raw.get("decision", "SKIP")).upper()
+                    prior_model_side = str(pending_model.get("decision", "SKIP")).upper()
+                    if not closed and prior_side in {"LONG", "SHORT"} and prior_side == prior_model_side:
+                        current_summary = engine.summary()
+                        atr = safe_number(pending_model.get("atr14"))
+                        if atr and atr > 0 and not current_summary["has_open_position"] and not current_summary["daily_stop_hit"]:
                             entry = float(candle["open"])
-                            if atr and atr > 0:
-                                stop = entry - atr if side_prev == "LONG" else entry + atr
-                                target = entry + 1.5 * atr if side_prev == "LONG" else entry - 1.5 * atr
-                                try:
-                                    opened = engine.open_position(symbol, side_prev, entry, stop, target, timestamp=candle_time)
-                                    logging.info("%s confirmed paper %s opened qty=%.8g", symbol, side_prev, opened["quantity"])
-                                except ValueError as exc:
-                                    logging.info("%s paper entry blocked: %s", symbol, exc)
+                            stop = entry - atr if prior_side == "LONG" else entry + atr
+                            target = entry + 1.5 * atr if prior_side == "LONG" else entry - 1.5 * atr
+                            try:
+                                opened = engine.open_position(symbol, prior_side, entry, stop, target, timestamp=candle_time)
+                                logging.info("%s confirmed paper %s opened qty=%.8g", symbol, prior_side, opened["quantity"])
+                            except ValueError as exc:
+                                logging.info("%s paper entry blocked: %s", symbol, exc)
 
-                    prefix = candles.iloc[:i + 1].reset_index(drop=True)
-                    indicators = add_indicators(prefix)
-                    raw_result = assess_candidate(indicators, symbol, expert_pick=True)
-                    model_result = assess_regime(prefix, symbol, expert_pick=True)
+                    current_frame = candles.iloc[:i + 1].reset_index(drop=True)
+                    raw_result, model_result = assess(current_frame, symbol)
                     raw_side = str(raw_result.get("decision", "SKIP")).upper()
                     model_side = str(model_result.get("decision", "SKIP")).upper()
                     confirmed = raw_side in {"LONG", "SHORT"} and raw_side == model_side
@@ -155,6 +154,7 @@ def main() -> None:
                         atr_pct=safe_number(model_result.get("atr_pct")),
                         relative_volume=safe_number(model_result.get("relative_volume")),
                     )
+                    pending_raw, pending_model = raw_result, model_result
                     status["processed_candles"] += 1
                 logging.info("%s: processed %s new candles", symbol, len(new_indices))
             except Exception as exc:
