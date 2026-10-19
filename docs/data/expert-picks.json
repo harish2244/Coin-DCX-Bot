@@ -1,0 +1,43 @@
+{
+  "updated_at": "2026-10-19",
+  "source": "Manually transcribed from user-provided CoinDCX Expert Picks screenshots",
+  "note": "Captured picks only. Prices are screenshot observations, not live quotes. No trades have been opened from these records. Confirm instruments and live price feed before automated monitoring.",
+  "picks": [
+    {
+      "pick_id": "marketwind-nikkei225-2026-10-15-2110",
+      "instrument": "Nikkei225",
+      "direction": "LONG",
+      "provider_leverage": "8x",
+      "entry_low": 63450,
+      "entry_high": 64400,
+      "stop_loss": 62200,
+      "take_profit": 66168,
+      "expected_profit_pct": 19,
+      "screenshot_ltp": 64603,
+      "published_at_display": "15 Oct 2026, 9:10 PM (app display; timezone not confirmed)",
+      "valid_until": "2026-10-19",
+      "category": "Global",
+      "status": "CAPTURED_NEEDS_INSTRUMENT_MAPPING",
+      "entry_range_currently_reached": false,
+      "notes": "Screenshot LTP 64,603 was above the entry range 63,450–64,400. Validity ends 19 Oct 2026; verify provider timezone and current call status before any action."
+    },
+    {
+      "pick_id": "marketwind-xau-2026-10-19",
+      "instrument": "XAU",
+      "direction": "SHORT",
+      "provider_leverage": "11x",
+      "entry_low": 4181,
+      "entry_high": 4244,
+      "stop_loss": 4291,
+      "take_profit": 4110.45,
+      "expected_profit_pct": 18,
+      "screenshot_ltp": 4161.24,
+      "published_at_display": "Not visible in latest screenshot",
+      "valid_until": "2026-10-23",
+      "category": "Crypto (as labelled in app screenshot)",
+      "status": "CAPTURED_NEEDS_INSTRUMENT_MAPPING",
+      "entry_range_currently_reached": null,
+      "notes": "Entry range interpreted as 4,181–4,244 for the SHORT call. LTP 4,161.24 was visible in an earlier screenshot; it is not a live quote. Confirm units/contract and current provider status."
+    }
+  ]
+}
