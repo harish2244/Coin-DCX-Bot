@@ -1,0 +1,48 @@
+{
+  "generated_at": "2026-10-19",
+  "mode": "PAPER_ONLY",
+  "assumptions": {
+    "starting_equity_inr": 10000,
+    "risk_per_trade_inr": 50,
+    "risk_pct": 0.5,
+    "leverage_cap": 3,
+    "max_notional_inr": 30000,
+    "fee_per_side_pct": 0.05,
+    "exit_slippage_pct": 0.05,
+    "strategy_gate": "Only simulate an entry if the published range is reached while the call is valid and the independent technical/regime model confirms the direction. One position at a time; stop after ₹200 daily realized loss; no averaging down.",
+    "limitations": "Scenario calculations only, not a candle-by-candle backtest or a prediction. Contract multipliers, settlement currency, funding, spread and exact exchange fees are unverified. Exact CoinDCX market IDs/feed for Nikkei225 and XAU are not verified. The quantity figures are illustrative and must not be treated as exchange-order quantities.",
+    "probability_note": "No win probability is inferred. Actual trade outcomes depend on price path and model confirmation. If no eligible entry occurs, the result is ₹0."
+  },
+  "picks": [
+    {
+      "instrument": "Nikkei225",
+      "direction": "LONG",
+      "entry_low": 63450,
+      "entry_high": 64400,
+      "stop_loss": 62200,
+      "take_profit": 66168,
+      "valid_until": "2026-10-19",
+      "scenario_type": "hypothetical_price_level_scenarios_not_backtest",
+      "scenarios": [
+        {"entry":63450,"entry_notional_inr":2538.00,"quantity_in_contract_units":0.04,"planned_stop_risk_before_costs_inr":50,"stop_distance_pct":1.97,"target_distance_pct":4.284,"reward_risk_ratio_before_costs":2.174,"win_at_target":{"gross_pnl_inr":107.40,"estimated_costs_inr":2.59,"net_pnl_inr":104.80},"loss_at_stop":{"gross_pnl_inr":-51.24,"estimated_costs_inr":2.51,"net_pnl_inr":-53.76}},
+        {"entry":63925,"entry_notional_inr":1852.90,"quantity_in_contract_units":0.02898551,"planned_stop_risk_before_costs_inr":50,"stop_distance_pct":2.698,"target_distance_pct":3.509,"reward_risk_ratio_before_costs":1.300,"win_at_target":{"gross_pnl_inr":64.06,"estimated_costs_inr":1.88,"net_pnl_inr":62.17},"loss_at_stop":{"gross_pnl_inr":-50.90,"estimated_costs_inr":1.83,"net_pnl_inr":-52.73}},
+        {"entry":64400,"entry_notional_inr":1463.64,"quantity_in_contract_units":0.02272727,"planned_stop_risk_before_costs_inr":50,"stop_distance_pct":3.416,"target_distance_pct":2.745,"reward_risk_ratio_before_costs":0.804,"win_at_target":{"gross_pnl_inr":39.43,"estimated_costs_inr":1.48,"net_pnl_inr":37.95},"loss_at_stop":{"gross_pnl_inr":-50.71,"estimated_costs_inr":1.44,"net_pnl_inr":-52.15}}
+      ]
+    },
+    {
+      "instrument": "XAU",
+      "direction": "SHORT",
+      "entry_low": 4181,
+      "entry_high": 4244,
+      "stop_loss": 4291,
+      "take_profit": 4110.45,
+      "valid_until": "2026-10-23",
+      "scenario_type": "hypothetical_price_level_scenarios_not_backtest",
+      "scenarios": [
+        {"entry":4181,"entry_notional_inr":1900.45,"quantity_in_contract_units":0.45454545,"planned_stop_risk_before_costs_inr":50,"stop_distance_pct":2.631,"target_distance_pct":1.687,"reward_risk_ratio_before_costs":0.641,"win_at_target":{"gross_pnl_inr":31.13,"estimated_costs_inr":1.88,"net_pnl_inr":29.25},"loss_at_stop":{"gross_pnl_inr":-50.98,"estimated_costs_inr":1.93,"net_pnl_inr":-52.90}},
+        {"entry":4212.5,"entry_notional_inr":2683.12,"quantity_in_contract_units":0.63694268,"planned_stop_risk_before_costs_inr":50,"stop_distance_pct":1.864,"target_distance_pct":2.423,"reward_risk_ratio_before_costs":1.300,"win_at_target":{"gross_pnl_inr":63.69,"estimated_costs_inr":2.65,"net_pnl_inr":61.04},"loss_at_stop":{"gross_pnl_inr":-51.37,"estimated_costs_inr":2.71,"net_pnl_inr":-54.08}},
+        {"entry":4244,"entry_notional_inr":4514.89,"quantity_in_contract_units":1.06382979,"planned_stop_risk_before_costs_inr":50,"stop_distance_pct":1.107,"target_distance_pct":3.147,"reward_risk_ratio_before_costs":2.841,"win_at_target":{"gross_pnl_inr":139.89,"estimated_costs_inr":4.44,"net_pnl_inr":135.44},"loss_at_stop":{"gross_pnl_inr":-52.28,"estimated_costs_inr":4.54,"net_pnl_inr":-56.82}}
+      ]
+    }
+  ]
+}
