@@ -1,0 +1,41 @@
+name: Public-data paper backtest
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "bot/backtest.py"
+      - "bot/regime_strategy.py"
+      - "bot/coindcx_public.py"
+      - "bot/run_public_backtest.py"
+      - ".github/workflows/public-backtest.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  public-data-backtest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      BACKTEST_SYMBOLS: B-BTC_USDT,B-ETH_USDT
+      BACKTEST_LOOKBACK_MINUTES: "10000"
+      STARTING_EQUITY_INR: "10000"
+      INR_PER_USDT: "88"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -r requirements-dev.txt
+      - name: Fetch public futures candles and backtest
+        run: python -m bot.run_public_backtest
+      - name: Upload backtest summary and trade ledgers
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: regime-scalping-backtest
+          path: backtest_results/
+          if-no-files-found: warn
+          retention-days: 14
