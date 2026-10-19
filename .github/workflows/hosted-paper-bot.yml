@@ -23,7 +23,7 @@ permissions:
 
 concurrency:
   group: hosted-paper-trader
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   monitor-and-publish:
@@ -35,6 +35,8 @@ jobs:
         with:
           ref: main
           persist-credentials: true
+      - name: Sync with latest main before processing
+        run: git pull --rebase origin main
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -51,7 +53,6 @@ jobs:
           git add data/live_paper_trades.sqlite3 docs/data/dashboard.json
           if ! git diff --cached --quiet; then
             git commit -m "Update hosted paper-trading records"
-            git pull --rebase origin main
             git push origin HEAD:main
           fi
       - name: Configure GitHub Pages
