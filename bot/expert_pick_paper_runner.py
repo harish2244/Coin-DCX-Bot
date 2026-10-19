@@ -61,6 +61,10 @@ def main():
         if isinstance(raw,dict): prices=raw
     except Exception as e: warnings.append(f"price snapshot: {type(e).__name__}: {e}")
     rows=[]
+    model_evaluations=0
+    directional_signals=0
+    pick_direction_matches=0
+    candle_data_ok=0
     for p in PICKS:
         matching=[s for s in p["symbol_terms"] if s in active]
         symbol=matching[0] if len(matching)==1 else None
@@ -89,6 +93,12 @@ def main():
                 candles=candles[candles["timestamp"] < pd.Timestamp(now).floor("min")].reset_index(drop=True)
                 if len(candles)>=70:
                     model=assess_regime(candles,symbol=symbol,expert_pick=True)
+                    model_evaluations += 1
+                    candle_data_ok += 1
+                    if str(model.get("decision","SKIP")).upper() in {"LONG","SHORT"}:
+                        directional_signals += 1
+                    if str(model.get("decision","SKIP")).upper() == p["side"]:
+                        pick_direction_matches += 1
                     touched=p["low"]<=price<=p["high"]
                     correct_model=str(model.get("decision","SKIP")).upper()==p["side"]
                     risk=abs(price-p["stop"])
@@ -153,6 +163,10 @@ def main():
         rows.append({"pick_id":p["id"],"instrument":p["instrument"],"symbol":symbol,"side":p["side"],
           "entry_range":f'{p["low"]}–{p["high"]}',"live_price":price,"stop":p["stop"],"target":p["target"],
           "valid_until":p["valid"],"model_decision":model_decision,"paper_status":state,
+          "price_data_status":"OK" if price is not None else ("UNMAPPED" if not symbol else "NO_PRICE"),
+          "candle_data_status":"OK" if model_decision != "UNKNOWN" else ("ERROR_OR_NOT_CHECKED" if symbol else "UNMAPPED"),
+          "signal_detected":model_decision in {"LONG","SHORT"},
+          "signal_matches_pick":model_decision == p["side"],
           "entry":openrow["entry"] if openrow else None,"opened_at":openrow["opened_at"] if openrow else None,
           "exit_price":openrow["exit_price"] if openrow else None,"exit_reason":openrow["exit_reason"] if openrow else None,
           "net_pnl_inr":openrow["net_pnl_inr"] if openrow else None,"note":note})
@@ -161,7 +175,13 @@ def main():
     total_net=float(db.execute("SELECT COALESCE(SUM(net_pnl_inr),0) FROM expert_trades WHERE status='CLOSED'").fetchone()[0])
     payload={"updated_at":now.isoformat(),"mode":"PAPER ONLY — no live orders","starting_equity_inr":STARTING_EQUITY_INR,
       "risk_per_trade_inr":RISK_INR,"max_leverage":LEVERAGE_CAP,"daily_loss_stop_inr":DAILY_STOP_INR,
-      "minimum_reward_risk":MIN_RR,"net_realized_pnl_inr":round(total_net,2),
+      "minimum_reward_risk":MIN_RR,
+      "health":{"runner_completed":True,"prices_available":sum(1 for x in rows if x.get("live_price") is not None),
+        "markets_mapped":sum(1 for x in rows if x.get("symbol")),"candle_data_ok":candle_data_ok,
+        "model_evaluations":model_evaluations,"directional_signals":directional_signals,
+        "signals_matching_pick":pick_direction_matches,"paper_entries_total":sum(1 for t in trades if t.get("opened_at")),
+        "last_run_at":now.isoformat(),"scheduled_interval_minutes":5},
+      "net_realized_pnl_inr":round(total_net,2),
       "equity_estimate_inr":round(STARTING_EQUITY_INR+total_net,2),"warnings":warnings,"picks":rows,"trades":trades}
     OUT.parent.mkdir(parents=True,exist_ok=True); OUT.write_text(json.dumps(payload,indent=2,default=str))
     print(json.dumps(payload,indent=2))
