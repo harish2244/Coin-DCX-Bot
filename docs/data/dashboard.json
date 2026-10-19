@@ -1,0 +1,9 @@
+{
+  "updated_at": null,
+  "status": {"ok": false, "message": "Waiting for first scheduled GitHub Actions run", "processed_candles": 0, "errors": []},
+  "mode": "PAPER ONLY",
+  "settings": {"symbols": ["B-BTC_INR", "B-ETH_INR"], "starting_equity_inr": 10000, "planned_risk_pct": 0.5, "leverage_cap": 3, "daily_loss_stop_inr": 200, "schedule": "Every 5 minutes (GitHub Actions)"},
+  "summary": {"signals": 0, "confirmed_signals": 0, "closed_trades": 0, "open_trades": 0, "wins": 0, "losses": 0, "win_rate_pct": 0, "gross_profit": 0, "gross_loss": 0, "net_pnl": 0, "equity_estimate": 10000, "profit_factor": 0, "expectancy": 0, "max_drawdown_pct": 0, "daily_net_pnl": 0, "daily_stop_hit": false, "starting_equity": 10000},
+  "signals": [],
+  "trades": []
+}
