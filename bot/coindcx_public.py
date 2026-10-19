@@ -8,7 +8,7 @@ import requests
 
 BASE_URL = "https://public.coindcx.com"
 API_URL = "https://api.coindcx.com"
-TIMEOUT_SECONDS = 10
+TIMEOUT_SECONDS = 15
 
 
 class CoinDCXPublicAPIError(RuntimeError):
@@ -34,20 +34,25 @@ def get_active_futures_instruments(margin_currency: str = "USDT") -> list[str]:
         params={"margin_currency_short_name[]": margin},
     )
     if not isinstance(payload, list):
-        raise CoinDCXPublicAPIError("Unexpected active-instruments response format")
+        raise CoinDCXPublicAPIError(f"Unexpected active-instruments response: {str(payload)[:250]}")
     return sorted({str(pair) for pair in payload if isinstance(pair, str) and pair.startswith("B-")})
 
 
 def get_futures_current_prices() -> dict[str, Any]:
     """Return the public futures current-price snapshot."""
     payload = _get_json(f"{BASE_URL}/market_data/v3/current_prices/futures/rt")
-    if not isinstance(payload, dict) or not isinstance(payload.get("prices"), dict):
+    if not isinstance(payload, dict):
         raise CoinDCXPublicAPIError("Unexpected futures current-prices response format")
-    return payload
+    if isinstance(payload.get("prices"), dict):
+        return payload
+    # Some public responses expose the symbol-to-price map directly.
+    if payload and all(isinstance(v, dict) for v in payload.values()):
+        return {"prices": payload}
+    raise CoinDCXPublicAPIError(f"Unexpected futures current-prices fields: {list(payload)[:12]}")
 
 
 def get_futures_candles(pair: str, resolution: str = "1", lookback_minutes: int = 240) -> pd.DataFrame:
-    """Fetch public futures candles. resolution supports 1, 5, 60, or 1D."""
+    """Fetch public futures candles using CoinDCX's documented futures endpoint."""
     if not isinstance(pair, str) or not pair.startswith("B-") or len(pair) > 64:
         raise ValueError("Select a valid CoinDCX futures pair")
     if resolution not in {"1", "5", "60", "1D"}:
@@ -67,15 +72,27 @@ def get_futures_candles(pair: str, resolution: str = "1", lookback_minutes: int 
             "pcode": "f",
         },
     )
-    if not isinstance(payload, dict) or payload.get("s") != "ok" or not isinstance(payload.get("data"), list):
-        raise CoinDCXPublicAPIError("Unexpected futures-candles response format")
-    rows = payload["data"]
+    if isinstance(payload, dict):
+        rows = payload.get("data")
+        status = payload.get("s")
+        if not isinstance(rows, list):
+            raise CoinDCXPublicAPIError(
+                f"CoinDCX candle response for {pair} has no data list (status={status!r}, keys={list(payload)[:12]})"
+            )
+        if status not in (None, "ok") and not rows:
+            raise CoinDCXPublicAPIError(f"CoinDCX candle API status for {pair}: {status!r}")
+    elif isinstance(payload, list):
+        rows = payload
+    else:
+        raise CoinDCXPublicAPIError(f"Unexpected candle response type for {pair}: {type(payload).__name__}")
     if not rows:
         raise CoinDCXPublicAPIError(f"No candles returned for {pair}")
     frame = pd.DataFrame(rows)
     required = {"time", "open", "high", "low", "close", "volume"}
     if not required.issubset(frame.columns):
-        raise CoinDCXPublicAPIError("Futures-candles response is missing required fields")
+        raise CoinDCXPublicAPIError(
+            f"Futures-candles response for {pair} is missing fields; received {list(frame.columns)[:16]}"
+        )
     frame = frame.rename(columns={"time": "timestamp"})
     frame["timestamp"] = pd.to_datetime(pd.to_numeric(frame["timestamp"], errors="coerce"), unit="ms", utc=True)
     for col in ("open", "high", "low", "close", "volume"):
@@ -83,5 +100,5 @@ def get_futures_candles(pair: str, resolution: str = "1", lookback_minutes: int 
     frame = frame.dropna(subset=["timestamp", "open", "high", "low", "close", "volume"])
     frame = frame.sort_values("timestamp").drop_duplicates("timestamp", keep="last").reset_index(drop=True)
     if frame.empty:
-        raise CoinDCXPublicAPIError("CoinDCX returned no valid candle rows")
+        raise CoinDCXPublicAPIError(f"CoinDCX returned no valid candle rows for {pair}")
     return frame[["timestamp", "open", "high", "low", "close", "volume"]]
