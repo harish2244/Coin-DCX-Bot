@@ -67,6 +67,9 @@ def main():
     pick_direction_matches=0
     candle_data_ok=0
     for p in PICKS:
+        model_regime="UNKNOWN"
+        model_reason="Model not evaluated"
+        model_metrics={}
         matching=[s for s in p["symbol_terms"] if s in active]
         symbol=matching[0] if len(matching)==1 else None
         price_row=prices.get(symbol,{}) if symbol else {}
@@ -94,6 +97,9 @@ def main():
                 candles=candles[candles["timestamp"] < pd.Timestamp(now).floor("min")].reset_index(drop=True)
                 if len(candles)>=70:
                     model=assess_regime(candles,symbol=symbol,expert_pick=True)
+                    model_regime=str(model.get("regime","UNKNOWN"))
+                    model_reason=str(model.get("reason","No reason returned"))
+                    model_metrics={k:model.get(k) for k in ("close","ema20","ema50","adx14","rsi14","vwap30","atr_pct","relative_volume") if model.get(k) is not None}
                     model_evaluations += 1
                     candle_data_ok += 1
                     if str(model.get("decision","SKIP")).upper() in {"LONG","SHORT"}:
@@ -163,7 +169,10 @@ def main():
         openrow=db.execute("SELECT * FROM expert_trades WHERE pick_id=? ORDER BY id DESC LIMIT 1",(p["id"],)).fetchone()
         rows.append({"pick_id":p["id"],"instrument":p["instrument"],"symbol":symbol,"side":p["side"],
           "entry_range":f'{p["low"]}–{p["high"]}',"live_price":price,"stop":p["stop"],"target":p["target"],
-          "valid_until":p["valid"],"model_decision":model_decision,"paper_status":state,
+          "valid_until":p["valid"],"model_decision":model_decision,"model_regime":model_regime,
+          "model_reason":model_reason,"model_metrics":model_metrics,
+          "pick_direction":p["side"],"price_in_entry_range":bool(price is not None and p["low"]<=price<=p["high"]),
+          "paper_status":state,
           "price_data_status":"OK" if price is not None else ("UNMAPPED" if not symbol else "NO_PRICE"),
           "candle_data_status":"OK" if model_decision != "UNKNOWN" else ("ERROR_OR_NOT_CHECKED" if symbol else "UNMAPPED"),
           "signal_detected":model_decision in {"LONG","SHORT"},
