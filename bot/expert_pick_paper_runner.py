@@ -8,7 +8,7 @@ from pathlib import Path
 import pandas as pd
 
 from bot.coindcx_public import get_active_futures_instruments, get_futures_candles, get_futures_current_prices
-from bot.regime_strategy import assess_regime
+from bot.expert_pick_strategy_v2 import evaluate_expert_pick
 
 DB = Path("data/expert_pick_paper.sqlite3")
 OUT = Path("docs/data/expert-pick-paper-trades.json")
@@ -20,7 +20,7 @@ LEVERAGE_CAP = 3.0
 FX_ESTIMATE = 88.0
 FEE_RATE = 0.0005
 SLIPPAGE_RATE = 0.0005
-MIN_RR = 1.2
+MIN_RR = 1.1
 # Exact candidate mappings only. A symbol is activated only if it appears in the public active-instruments feed.
 PICKS = [
     {"id":"sol-2026-10-19","instrument":"SOL","side":"LONG","low":104.46,"high":105.51,"stop":103.68,"target":106.69,"valid":"2026-10-23","symbol_terms":["B-SOL_USDT"]},
@@ -93,21 +93,29 @@ def main():
             note="Waiting for price inside entry range and model confirmation."
         if symbol and price is not None and now.date().isoformat()<=p["valid"]:
             try:
-                candles=get_futures_candles(symbol,resolution="1",lookback_minutes=240)
-                candles=candles[candles["timestamp"] < pd.Timestamp(now).floor("min")].reset_index(drop=True)
-                if len(candles)>=70:
-                    model=assess_regime(candles,symbol=symbol,expert_pick=True)
-                    model_regime=str(model.get("regime","UNKNOWN"))
-                    model_reason=str(model.get("reason","No reason returned"))
-                    model_metrics={k:model.get(k) for k in ("close","ema20","ema50","adx14","rsi14","vwap30","atr_pct","relative_volume") if model.get(k) is not None}
+                # Fetch enough completed 5m bars to construct a meaningful 15m confirmation series.
+                candles=get_futures_candles(symbol,resolution="5",lookback_minutes=1800)
+                candles=candles[candles["timestamp"] + pd.Timedelta(minutes=5) <= pd.Timestamp(now).floor("min")].reset_index(drop=True)
+                candles_15m=(candles.set_index("timestamp")
+                    .resample("15min", origin="start_day", label="left", closed="left")
+                    .agg({"open":"first","high":"max","low":"min","close":"last","volume":"sum"})
+                    .dropna().reset_index())
+                candles_15m=candles_15m[candles_15m["timestamp"] + pd.Timedelta(minutes=15) <= pd.Timestamp(now).floor("min")].reset_index(drop=True)
+                if len(candles)>=70 and len(candles_15m)>=70:
+                    v2_pick={"side":p["side"],"low":p["low"],"high":p["high"],"stop":p["stop"],"target":p["target"],"valid":p["valid"]}
+                    v2=evaluate_expert_pick(v2_pick,price,candles,candles_15m,today=now.date())
+                    raw_decision=str(v2.get("decision","WAIT")).upper()
+                    model_decision=p["side"] if raw_decision=="ENTER_CANDIDATE" else "SKIP"
+                    model_regime=f"V2_{raw_decision}"
+                    model_reason=str(v2.get("reason","No reason returned"))
+                    model_metrics={k:v2.get(k) for k in ("model_5m","regime_5m","model_15m","regime_15m","net_reward_risk_estimate","price_in_range") if v2.get(k) is not None}
                     model_evaluations += 1
                     candle_data_ok += 1
-                    if str(model.get("decision","SKIP")).upper() in {"LONG","SHORT"}:
+                    if raw_decision=="ENTER_CANDIDATE":
                         directional_signals += 1
-                    if str(model.get("decision","SKIP")).upper() == p["side"]:
                         pick_direction_matches += 1
                     touched=p["low"]<=price<=p["high"]
-                    correct_model=str(model.get("decision","SKIP")).upper()==p["side"]
+                    correct_model=raw_decision=="ENTER_CANDIDATE"
                     risk=abs(price-p["stop"])
                     ratio=rr(p,price)
                     db.execute("UPDATE expert_trades SET status='CLOSED',exit_price=?,exit_reason='STOP',closed_at=?,note='Stop triggered by observed candle' WHERE status='OPEN' AND symbol=? AND side='LONG' AND stop>=?",
@@ -185,12 +193,12 @@ def main():
     total_net=float(db.execute("SELECT COALESCE(SUM(net_pnl_inr),0) FROM expert_trades WHERE status='CLOSED'").fetchone()[0])
     payload={"updated_at":now.isoformat(),"mode":"PAPER ONLY — no live orders","starting_equity_inr":STARTING_EQUITY_INR,
       "risk_per_trade_inr":RISK_INR,"max_leverage":LEVERAGE_CAP,"daily_loss_stop_inr":DAILY_STOP_INR,
-      "minimum_reward_risk":MIN_RR,
+      "minimum_reward_risk":MIN_RR,"strategy_version":"expert_pick_v2","execution_mode":"paper_only",
       "health":{"runner_completed":True,"prices_available":sum(1 for x in rows if x.get("live_price") is not None),
         "markets_mapped":sum(1 for x in rows if x.get("symbol")),"candle_data_ok":candle_data_ok,
         "model_evaluations":model_evaluations,"directional_signals":directional_signals,
         "signals_matching_pick":pick_direction_matches,"paper_entries_total":sum(1 for t in trades if t.get("opened_at")),
-        "last_run_at":now.isoformat(),"scheduled_interval_minutes":5},
+        "last_run_at":now.isoformat(),"scheduled_interval_minutes":10},
       "net_realized_pnl_inr":round(total_net,2),
       "equity_estimate_inr":round(STARTING_EQUITY_INR+total_net,2),"warnings":warnings,"picks":rows,"trades":trades}
     OUT.parent.mkdir(parents=True,exist_ok=True); OUT.write_text(json.dumps(payload,indent=2,default=str))
