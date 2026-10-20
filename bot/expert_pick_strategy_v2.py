@@ -13,7 +13,7 @@ STARTING_EQUITY_INR = 10_000.0
 RISK_PER_TRADE_INR = 50.0
 MAX_LEVERAGE = 3.0
 DAILY_LOSS_STOP_INR = 200.0
-MIN_REWARD_RISK = 1.2
+MIN_REWARD_RISK = 1.1
 FEE_RATE_PER_SIDE = 0.0005
 SLIPPAGE_RATE_PER_SIDE = 0.0005
 
@@ -71,8 +71,8 @@ def evaluate_expert_pick(pick: dict[str, Any], price: float | None,
         return {"decision": "WAIT", "reason": "One-position rule: another paper position is open"}
     if daily_realized_pnl_inr <= -DAILY_LOSS_STOP_INR:
         return {"decision": "REJECT", "reason": "Daily realized-loss stop reached"}
-    if spread_pct is not None and spread_pct > 0.15:
-        return {"decision": "REJECT", "reason": "Spread exceeds 0.15% safety threshold"}
+    if spread_pct is not None and spread_pct > 0.25:
+        return {"decision": "REJECT", "reason": "Spread exceeds 0.25% safety threshold"}
     if not low <= float(price) <= high:
         return {"decision": "WAIT", "reason": "Price is outside the Expert Pick entry range",
                 "price_in_range": False}
@@ -88,8 +88,8 @@ def evaluate_expert_pick(pick: dict[str, Any], price: float | None,
              "net_reward_risk_estimate": round(rr, 3)}
     if d5 != side:
         return {"decision": "WAIT", "reason": f"5m model does not confirm pick direction ({d5})", **audit}
-    if d15 != side:
-        return {"decision": "WAIT", "reason": f"15m confirmation conflicts with pick ({d15})", **audit}
+    if d15 in {"LONG", "SHORT"} and d15 != side:
+        return {"decision": "WAIT", "reason": f"15m model explicitly opposes pick ({d15})", **audit}
     if rr < MIN_REWARD_RISK:
         return {"decision": "REJECT", "reason": f"Estimated net reward/risk {rr:.2f} is below {MIN_REWARD_RISK:.2f}", **audit}
     return {"decision": "ENTER_CANDIDATE",
