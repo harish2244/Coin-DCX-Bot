@@ -22,13 +22,36 @@ FEE_RATE = 0.0005
 SLIPPAGE_RATE = 0.0005
 MIN_RR = 1.1
 # Exact candidate mappings only. A symbol is activated only if it appears in the public active-instruments feed.
-PICKS = [
-    {"id":"sol-2026-10-19","instrument":"SOL","side":"LONG","low":104.46,"high":105.51,"stop":103.68,"target":106.69,"valid":"2026-10-23","symbol_terms":["B-SOL_USDT"]},
-    {"id":"nikkei-2026-10-15","instrument":"Nikkei225","side":"LONG","low":63450,"high":64400,"stop":62200,"target":66168,"valid":"2026-10-19","symbol_terms":["B-NIKKEI225_USDC","B-NIKKEI_USDC","B-JP225_USDC"]},
-    {"id":"copper-2026-10-19","instrument":"COPPER","side":"LONG","low":6.475,"high":6.54,"stop":6.385,"target":6.666,"valid":"2026-10-20","symbol_terms":["B-COPPER_USDT"]},
-    {"id":"cl-2026-10-19","instrument":"CL","side":"SHORT","low":96.99,"high":97.91,"stop":98.62,"target":95.92,"valid":"2026-10-23","symbol_terms":["B-CL_USDT"]},
-    {"id":"xau-2026-10-18","instrument":"XAU","side":"SHORT","low":4181,"high":4244,"stop":4291,"target":4110.45,"valid":"2026-10-23","symbol_terms":["B-XAU_USDT"]},
-]
+def load_picks():
+    """Load the user-maintained picks file so new picks are monitored without code edits."""
+    if not PICKS_FILE.exists():
+        raise FileNotFoundError(f"Expert Picks source missing: {PICKS_FILE}")
+    source = json.loads(PICKS_FILE.read_text(encoding="utf-8"))
+    records = source.get("picks", [])
+    output = []
+    for item in records:
+        try:
+            side = str(item.get("direction", item.get("side", ""))).upper()
+            low = float(item.get("entry_low", item.get("low")))
+            high = float(item.get("entry_high", item.get("high")))
+            stop = float(item.get("stop_loss", item.get("stop")))
+            target = float(item.get("take_profit", item.get("target")))
+            valid = str(item.get("valid_until", item.get("valid", "")))
+            if side not in {"LONG", "SHORT"} or not (0 < low <= high and stop > 0 and target > 0) or not valid:
+                raise ValueError("invalid direction, price levels, or expiry")
+            terms = item.get("symbol_terms")
+            if terms is None:
+                terms = {"SOL": ["B-SOL_USDT"], "XAU": ["B-XAU_USDT"], "XAG": ["B-XAG_USDT"],
+                         "LINK": ["B-LINK_USDT"], "COPPER": ["B-COPPER_USDT"], "CL": ["B-CL_USDT"],
+                         "Nikkei225": ["B-NIKKEI225_USDC", "B-NIKKEI_USDC", "B-JP225_USDC"]}.get(str(item.get("instrument", "")), [])
+            output.append({"id": str(item.get("pick_id", item.get("id", item.get("instrument", "pick")))),
+                           "instrument": str(item.get("instrument", "Unknown")), "side": side,
+                           "low": low, "high": high, "stop": stop, "target": target,
+                           "valid": valid, "symbol_terms": list(terms)})
+        except (TypeError, ValueError) as exc:
+            raise ValueError(f"Invalid Expert Pick {item.get('pick_id', item.get('instrument', 'unknown'))}: {exc}") from exc
+    return output
+
 # Heartbeat marker: keep this worker file on the monitored workflow path.
 def now_utc(): return datetime.now(timezone.utc)
 def connect():
@@ -61,12 +84,13 @@ def main():
         raw=get_futures_current_prices().get("prices",{})
         if isinstance(raw,dict): prices=raw
     except Exception as e: warnings.append(f"price snapshot: {type(e).__name__}: {e}")
+    picks = load_picks()
     rows=[]
     model_evaluations=0
     directional_signals=0
     pick_direction_matches=0
     candle_data_ok=0
-    for p in PICKS:
+    for p in picks:
         model_regime="UNKNOWN"
         model_reason="Model not evaluated"
         model_metrics={}
