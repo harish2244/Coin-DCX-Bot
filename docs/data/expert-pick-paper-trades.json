@@ -1,11 +1,13 @@
 {
-  "updated_at": "2026-10-20T12:57:39.398501+00:00",
+  "updated_at": "2026-10-20T13:49:34.089152+00:00",
   "mode": "PAPER ONLY \u2014 no live orders",
   "starting_equity_inr": 10000.0,
   "risk_per_trade_inr": 50.0,
   "max_leverage": 3.0,
   "daily_loss_stop_inr": 200.0,
-  "minimum_reward_risk": 1.2,
+  "minimum_reward_risk": 1.1,
+  "strategy_version": "expert_pick_v2",
+  "execution_mode": "paper_only",
   "health": {
     "runner_completed": true,
     "prices_available": 4,
@@ -15,8 +17,8 @@
     "directional_signals": 0,
     "signals_matching_pick": 0,
     "paper_entries_total": 0,
-    "last_run_at": "2026-10-20T12:57:39.398501+00:00",
-    "scheduled_interval_minutes": 5
+    "last_run_at": "2026-10-20T13:49:34.089152+00:00",
+    "scheduled_interval_minutes": 10
   },
   "net_realized_pnl_inr": 0.0,
   "equity_estimate_inr": 10000.0,
@@ -28,30 +30,33 @@
       "symbol": "B-SOL_USDT",
       "side": "LONG",
       "entry_range": "104.46\u2013105.51",
-      "live_price": 104.43,
+      "live_price": 104.61,
       "stop": 103.68,
       "target": 106.69,
       "valid_until": "2026-10-23",
-      "model_decision": "SKIP",
-      "model_regime": "SKIP",
-      "model_reason": "Volatility or volume outside configured safety bounds",
+      "model_decision": "UNKNOWN",
+      "model_regime": "V2_WAIT",
+      "model_reason": "5m model does not confirm pick direction (SKIP)",
       "model_metrics": {
-        "adx14": 25.989170609796577,
-        "atr_pct": 0.11748488031778752,
-        "relative_volume": 0.3803363874813875
+        "model_5m": "SKIP",
+        "regime_5m": "UNCLEAR",
+        "model_15m": "SKIP",
+        "regime_15m": "UNCLEAR",
+        "net_reward_risk_estimate": 1.642,
+        "price_in_range": true
       },
       "pick_direction": "LONG",
-      "price_in_entry_range": false,
-      "paper_status": "WAITING_FOR_ENTRY",
-      "signal_stage": "WAITING_FOR_ENTRY",
+      "price_in_entry_range": true,
+      "paper_status": "DATA_ERROR",
+      "signal_stage": "DATA_ERROR",
       "entry_checks": {
         "signal_detected": false,
         "direction_matches": false,
-        "price_in_range": false,
+        "price_in_range": true,
         "paper_opened": false
       },
       "price_data_status": "OK",
-      "candle_data_status": "OK",
+      "candle_data_status": "ERROR_OR_NOT_CHECKED",
       "signal_detected": false,
       "signal_matches_pick": false,
       "entry": null,
@@ -59,7 +64,7 @@
       "exit_price": null,
       "exit_reason": null,
       "net_pnl_inr": null,
-      "note": "Live price 104.43 outside entry range."
+      "note": "NameError: name 'model' is not defined"
     },
     {
       "pick_id": "nikkei-2026-10-15",
@@ -102,22 +107,20 @@
       "symbol": "B-COPPER_USDT",
       "side": "LONG",
       "entry_range": "6.475\u20136.54",
-      "live_price": 6.591,
+      "live_price": 6.597,
       "stop": 6.385,
       "target": 6.666,
       "valid_until": "2026-10-20",
-      "model_decision": "SKIP",
-      "model_regime": "SKIP",
-      "model_reason": "Volatility or volume outside configured safety bounds",
+      "model_decision": "UNKNOWN",
+      "model_regime": "V2_WAIT",
+      "model_reason": "Price is outside the Expert Pick entry range",
       "model_metrics": {
-        "adx14": 18.691707858905975,
-        "atr_pct": 0.05370473943032766,
-        "relative_volume": 0.01117026455080677
+        "price_in_range": false
       },
       "pick_direction": "LONG",
       "price_in_entry_range": false,
-      "paper_status": "WAITING_FOR_ENTRY",
-      "signal_stage": "WAITING_FOR_ENTRY",
+      "paper_status": "DATA_ERROR",
+      "signal_stage": "DATA_ERROR",
       "entry_checks": {
         "signal_detected": false,
         "direction_matches": false,
@@ -125,7 +128,7 @@
         "paper_opened": false
       },
       "price_data_status": "OK",
-      "candle_data_status": "OK",
+      "candle_data_status": "ERROR_OR_NOT_CHECKED",
       "signal_detected": false,
       "signal_matches_pick": false,
       "entry": null,
@@ -133,7 +136,7 @@
       "exit_price": null,
       "exit_reason": null,
       "net_pnl_inr": null,
-      "note": "Live price 6.591 outside entry range."
+      "note": "NameError: name 'model' is not defined"
     },
     {
       "pick_id": "cl-2026-10-19",
@@ -141,22 +144,20 @@
       "symbol": "B-CL_USDT",
       "side": "SHORT",
       "entry_range": "96.99\u201397.91",
-      "live_price": 99.62,
+      "live_price": 98.73,
       "stop": 98.62,
       "target": 95.92,
       "valid_until": "2026-10-23",
-      "model_decision": "SKIP",
-      "model_regime": "SKIP",
-      "model_reason": "Volatility or volume outside configured safety bounds",
+      "model_decision": "UNKNOWN",
+      "model_regime": "V2_WAIT",
+      "model_reason": "Price is outside the Expert Pick entry range",
       "model_metrics": {
-        "adx14": 42.3187062608251,
-        "atr_pct": 0.20684722683571,
-        "relative_volume": 0.13224266313906113
+        "price_in_range": false
       },
       "pick_direction": "SHORT",
       "price_in_entry_range": false,
-      "paper_status": "WAITING_FOR_ENTRY",
-      "signal_stage": "WAITING_FOR_ENTRY",
+      "paper_status": "DATA_ERROR",
+      "signal_stage": "DATA_ERROR",
       "entry_checks": {
         "signal_detected": false,
         "direction_matches": false,
@@ -164,7 +165,7 @@
         "paper_opened": false
       },
       "price_data_status": "OK",
-      "candle_data_status": "OK",
+      "candle_data_status": "ERROR_OR_NOT_CHECKED",
       "signal_detected": false,
       "signal_matches_pick": false,
       "entry": null,
@@ -172,7 +173,7 @@
       "exit_price": null,
       "exit_reason": null,
       "net_pnl_inr": null,
-      "note": "Live price 99.62 outside entry range."
+      "note": "NameError: name 'model' is not defined"
     },
     {
       "pick_id": "xau-2026-10-18",
@@ -180,22 +181,20 @@
       "symbol": "B-XAU_USDT",
       "side": "SHORT",
       "entry_range": "4181\u20134244",
-      "live_price": 4126.13,
+      "live_price": 4137.6,
       "stop": 4291,
       "target": 4110.45,
       "valid_until": "2026-10-23",
-      "model_decision": "SKIP",
-      "model_regime": "SKIP",
-      "model_reason": "Volatility or volume outside configured safety bounds",
+      "model_decision": "UNKNOWN",
+      "model_regime": "V2_WAIT",
+      "model_reason": "Price is outside the Expert Pick entry range",
       "model_metrics": {
-        "adx14": 17.476923759897765,
-        "atr_pct": 0.0728104217791159,
-        "relative_volume": 0.5511610220214165
+        "price_in_range": false
       },
       "pick_direction": "SHORT",
       "price_in_entry_range": false,
-      "paper_status": "WAITING_FOR_ENTRY",
-      "signal_stage": "WAITING_FOR_ENTRY",
+      "paper_status": "DATA_ERROR",
+      "signal_stage": "DATA_ERROR",
       "entry_checks": {
         "signal_detected": false,
         "direction_matches": false,
@@ -203,7 +202,7 @@
         "paper_opened": false
       },
       "price_data_status": "OK",
-      "candle_data_status": "OK",
+      "candle_data_status": "ERROR_OR_NOT_CHECKED",
       "signal_detected": false,
       "signal_matches_pick": false,
       "entry": null,
@@ -211,7 +210,7 @@
       "exit_price": null,
       "exit_reason": null,
       "net_pnl_inr": null,
-      "note": "Live price 4126.13 outside entry range."
+      "note": "NameError: name 'model' is not defined"
     }
   ],
   "trades": []
