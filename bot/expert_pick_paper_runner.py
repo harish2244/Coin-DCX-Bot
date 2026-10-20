@@ -117,7 +117,7 @@ def main():
                     touched=p["low"]<=price<=p["high"]
                     correct_model=raw_decision=="ENTER_CANDIDATE"
                     risk=abs(price-p["stop"])
-                    ratio=rr(p,price)
+                    ratio=float(v2.get("net_reward_risk_estimate",0.0))
                     db.execute("UPDATE expert_trades SET status='CLOSED',exit_price=?,exit_reason='STOP',closed_at=?,note='Stop triggered by observed candle' WHERE status='OPEN' AND symbol=? AND side='LONG' AND stop>=?",
                                (p["stop"],now.isoformat(),symbol,price)) if False else None
                     # Manage open position from the latest completed candle, stop first.
@@ -150,7 +150,7 @@ def main():
                         note=f"Live price {price:g} outside entry range."
                     elif not correct_model:
                         state="WAITING_FOR_MODEL"
-                        note=f"Price in range, but model says {model.get('decision','SKIP')} ({model.get('regime','?')}); no entry."
+                        note=f"Price in range, but v2 says {raw_decision}: {model_reason}; no entry."
                     elif risk<=0 or ratio<MIN_RR:
                         state="REJECTED_RISK_REWARD"
                         note=f"Entry blocked: reward/risk {ratio:.2f} below minimum {MIN_RR:.2f}."
@@ -167,7 +167,6 @@ def main():
                            "Paper entry at observed live price; 3x cap and 0.5% risk sizing."))
                         state="PAPER_OPEN" if db.execute("SELECT changes()").fetchone()[0] else "POSITION_ALREADY_RECORDED"
                         note="Paper position opened at observed live price; no live order placed."
-                    model_decision=model.get("decision","SKIP")
                 else:
                     model_decision="SKIP"; state="INSUFFICIENT_CANDLES"; note="Insufficient completed candles for model confirmation."
             except Exception as e:
