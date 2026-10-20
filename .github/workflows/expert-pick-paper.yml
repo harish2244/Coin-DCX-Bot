@@ -9,6 +9,7 @@ on:
       - "bot/expert_pick_paper_runner.py"
       - "bot/regime_strategy.py"
       - "bot/coindcx_public.py"
+      - "docs/data/expert-picks.json"
       - ".github/workflows/expert-pick-paper.yml"
 permissions:
   contents: write
