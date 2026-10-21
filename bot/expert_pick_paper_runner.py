@@ -52,6 +52,9 @@ def load_picks():
             raise ValueError(f"Invalid Expert Pick {item.get('pick_id', item.get('instrument', 'unknown'))}: {exc}") from exc
     return output
 
+# Backward-compatible constant for legacy tests/tools; runtime still reloads picks in main().
+PICKS = load_picks()
+
 # Heartbeat marker: keep this worker file on the monitored workflow path.
 def now_utc(): return datetime.now(timezone.utc)
 def connect():
