@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-21T01:04:57.172939+00:00",
+  "updated_at": "2026-10-21T01:05:27.512646+00:00",
   "mode": "PAPER ONLY \u2014 no live orders",
   "starting_equity_inr": 10000.0,
   "risk_per_trade_inr": 50.0,
@@ -17,7 +17,7 @@
     "directional_signals": 0,
     "signals_matching_pick": 0,
     "paper_entries_total": 0,
-    "last_run_at": "2026-10-21T01:04:57.172939+00:00",
+    "last_run_at": "2026-10-21T01:05:27.512646+00:00",
     "scheduled_interval_minutes": 10
   },
   "net_realized_pnl_inr": 0.0,
@@ -29,6 +29,9 @@
       "instrument": "Nikkei225",
       "symbol": null,
       "side": "LONG",
+      "mapping_candidates_checked": [],
+      "active_candidate_matches": [],
+      "mapping_status": "NO_EXACT_ACTIVE_MATCH",
       "entry_range": "63450.0\u201364400.0",
       "live_price": null,
       "stop": 62200.0,
@@ -64,8 +67,17 @@
       "instrument": "XAU",
       "symbol": "B-XAU_USDT",
       "side": "SHORT",
+      "mapping_candidates_checked": [
+        "B-XAU_USDT",
+        "B-XAU_USDC",
+        "B-XAU_INR"
+      ],
+      "active_candidate_matches": [
+        "B-XAU_USDT"
+      ],
+      "mapping_status": "MAPPED_EXACT",
       "entry_range": "4181.0\u20134244.0",
-      "live_price": 4121.16,
+      "live_price": 4117.57,
       "stop": 4291.0,
       "target": 4110.45,
       "valid_until": "2026-10-23",
@@ -94,15 +106,22 @@
       "exit_price": null,
       "exit_reason": null,
       "net_pnl_inr": null,
-      "note": "Live price 4121.16 outside entry range."
+      "note": "Live price 4117.57 outside entry range."
     },
     {
       "pick_id": "marketwind-sol-2026-10-19",
       "instrument": "SOL",
       "symbol": "B-SOL_USDT",
       "side": "LONG",
+      "mapping_candidates_checked": [
+        "B-SOL_USDT"
+      ],
+      "active_candidate_matches": [
+        "B-SOL_USDT"
+      ],
+      "mapping_status": "MAPPED_EXACT",
       "entry_range": "104.46\u2013105.51",
-      "live_price": 106.35,
+      "live_price": 106.23,
       "stop": 103.68,
       "target": 106.69,
       "valid_until": "2026-10-23",
@@ -131,15 +150,22 @@
       "exit_price": null,
       "exit_reason": null,
       "net_pnl_inr": null,
-      "note": "Live price 106.35 outside entry range."
+      "note": "Live price 106.23 outside entry range."
     },
     {
       "pick_id": "marketwind-copper-2026-10-19",
       "instrument": "COPPER",
       "symbol": "B-COPPER_USDT",
       "side": "LONG",
+      "mapping_candidates_checked": [
+        "B-COPPER_USDT"
+      ],
+      "active_candidate_matches": [
+        "B-COPPER_USDT"
+      ],
+      "mapping_status": "MAPPED_EXACT",
       "entry_range": "6.475\u20136.54",
-      "live_price": 6.622,
+      "live_price": 6.62,
       "stop": 6.385,
       "target": 6.666,
       "valid_until": "2026-10-20",
@@ -173,8 +199,15 @@
       "instrument": "CL",
       "symbol": "B-CL_USDT",
       "side": "SHORT",
+      "mapping_candidates_checked": [
+        "B-CL_USDT"
+      ],
+      "active_candidate_matches": [
+        "B-CL_USDT"
+      ],
+      "mapping_status": "MAPPED_EXACT",
       "entry_range": "96.99\u201397.91",
-      "live_price": 98.9,
+      "live_price": 99.08,
       "stop": 98.62,
       "target": 95.92,
       "valid_until": "2026-10-23",
@@ -203,15 +236,22 @@
       "exit_price": null,
       "exit_reason": null,
       "net_pnl_inr": null,
-      "note": "Live price 98.9 outside entry range."
+      "note": "Live price 99.08 outside entry range."
     },
     {
       "pick_id": "marketwind-xag-2026-10-19",
       "instrument": "XAG",
       "symbol": "B-XAG_USDT",
       "side": "LONG",
+      "mapping_candidates_checked": [
+        "B-XAG_USDT"
+      ],
+      "active_candidate_matches": [
+        "B-XAG_USDT"
+      ],
+      "mapping_status": "MAPPED_EXACT",
       "entry_range": "56.93\u201357.5",
-      "live_price": 57.69,
+      "live_price": 57.59,
       "stop": 56.5,
       "target": 58.14,
       "valid_until": "2026-10-23",
@@ -240,15 +280,22 @@
       "exit_price": null,
       "exit_reason": null,
       "net_pnl_inr": null,
-      "note": "Live price 57.69 outside entry range."
+      "note": "Live price 57.59 outside entry range."
     },
     {
       "pick_id": "marketwind-link-2026-10-19",
       "instrument": "LINK",
       "symbol": "B-LINK_USDT",
       "side": "SHORT",
+      "mapping_candidates_checked": [
+        "B-LINK_USDT"
+      ],
+      "active_candidate_matches": [
+        "B-LINK_USDT"
+      ],
+      "mapping_status": "MAPPED_EXACT",
       "entry_range": "11.88\u201312.06",
-      "live_price": 12.366,
+      "live_price": 12.351,
       "stop": 12.195,
       "target": 11.678,
       "valid_until": "2026-10-24",
@@ -277,13 +324,20 @@
       "exit_price": null,
       "exit_reason": null,
       "net_pnl_inr": null,
-      "note": "Live price 12.366 outside entry range."
+      "note": "Live price 12.351 outside entry range."
     },
     {
       "pick_id": "marketwind-meta-2026-10-19",
       "instrument": "META",
       "symbol": null,
       "side": "SHORT",
+      "mapping_candidates_checked": [
+        "B-META_USDC",
+        "B-META_INR",
+        "B-META_USDT"
+      ],
+      "active_candidate_matches": [],
+      "mapping_status": "NO_EXACT_ACTIVE_MATCH",
       "entry_range": "706.0\u2013716.7",
       "live_price": null,
       "stop": 724.68,
@@ -319,6 +373,16 @@
       "instrument": "GOOGLE",
       "symbol": null,
       "side": "LONG",
+      "mapping_candidates_checked": [
+        "B-GOOGL_USDC",
+        "B-GOOG_USDC",
+        "B-GOOGLE_USDC",
+        "B-GOOGL_INR",
+        "B-GOOG_INR",
+        "B-GOOGLE_INR"
+      ],
+      "active_candidate_matches": [],
+      "mapping_status": "NO_EXACT_ACTIVE_MATCH",
       "entry_range": "340.0\u2013344.0",
       "live_price": null,
       "stop": 337.0,
@@ -354,6 +418,14 @@
       "instrument": "SPCX",
       "symbol": null,
       "side": "LONG",
+      "mapping_candidates_checked": [
+        "B-SPCX_USDC",
+        "B-SPACEX_USDC",
+        "B-SPCX_INR",
+        "B-SPACEX_INR"
+      ],
+      "active_candidate_matches": [],
+      "mapping_status": "NO_EXACT_ACTIVE_MATCH",
       "entry_range": "144.83\u2013147.0",
       "live_price": null,
       "stop": 141.95,
@@ -389,6 +461,13 @@
       "instrument": "AMZN",
       "symbol": null,
       "side": "LONG",
+      "mapping_candidates_checked": [
+        "B-AMZN_USDC",
+        "B-AMZN_INR",
+        "B-AMZN_USDT"
+      ],
+      "active_candidate_matches": [],
+      "mapping_status": "NO_EXACT_ACTIVE_MATCH",
       "entry_range": "259.88\u2013262.5",
       "live_price": null,
       "stop": 257.92,
@@ -424,6 +503,13 @@
       "instrument": "INTC",
       "symbol": null,
       "side": "LONG",
+      "mapping_candidates_checked": [
+        "B-INTC_USDC",
+        "B-INTC_INR",
+        "B-INTC_USDT"
+      ],
+      "active_candidate_matches": [],
+      "mapping_status": "NO_EXACT_ACTIVE_MATCH",
       "entry_range": "91.04\u201392.4",
       "live_price": null,
       "stop": 90.02,
