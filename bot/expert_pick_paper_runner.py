@@ -215,6 +215,8 @@ def main():
             model_decision="UNKNOWN"
         openrow=db.execute("SELECT * FROM expert_trades WHERE pick_id=? ORDER BY id DESC LIMIT 1",(p["id"],)).fetchone()
         rows.append({"pick_id":p["id"],"instrument":p["instrument"],"symbol":symbol,"side":p["side"],
+          "mapping_candidates_checked":p["symbol_terms"],"active_candidate_matches":matching,
+          "mapping_status":"MAPPED_EXACT" if len(matching)==1 else ("AMBIGUOUS_MATCH" if len(matching)>1 else "NO_EXACT_ACTIVE_MATCH"),
           "entry_range":f'{p["low"]}–{p["high"]}',"live_price":price,"stop":p["stop"],"target":p["target"],
           "valid_until":p["valid"],"model_decision":model_decision,"model_regime":model_regime,
           "model_reason":model_reason,"model_metrics":model_metrics,
