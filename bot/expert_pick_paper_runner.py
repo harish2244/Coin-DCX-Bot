@@ -40,10 +40,23 @@ def load_picks():
             if side not in {"LONG", "SHORT"} or not (0 < low <= high and stop > 0 and target > 0) or not valid:
                 raise ValueError("invalid direction, price levels, or expiry")
             terms = item.get("symbol_terms")
-            if terms is None:
-                terms = {"SOL": ["B-SOL_USDT"], "XAU": ["B-XAU_USDT"], "XAG": ["B-XAG_USDT"],
-                         "LINK": ["B-LINK_USDT"], "COPPER": ["B-COPPER_USDT"], "CL": ["B-CL_USDT"],
-                         "Nikkei225": ["B-NIKKEI225_USDC", "B-NIKKEI_USDC", "B-JP225_USDC"]}.get(str(item.get("instrument", "")), [])
+            if not terms:
+                aliases = {
+                    "SOL": ["B-SOL_USDT"],
+                    "XAU": ["B-XAU_USDT", "B-XAU_USDC", "B-XAU_INR"],
+                    "XAG": ["B-XAG_USDT", "B-XAG_USDC", "B-XAG_INR"],
+                    "LINK": ["B-LINK_USDT", "B-LINK_USDC", "B-LINK_INR"],
+                    "COPPER": ["B-COPPER_USDT", "B-COPPER_USDC", "B-COPPER_INR"],
+                    "CL": ["B-CL_USDT", "B-CL_USDC", "B-CL_INR"],
+                    "Nikkei225": ["B-NIKKEI225_USDC", "B-NIKKEI_USDC", "B-JP225_USDC", "B-NIKKEI225_INR", "B-NIKKEI_INR", "B-JP225_INR"],
+                    "META": ["B-META_USDC", "B-META_INR", "B-META_USDT"],
+                    "GOOGLE": ["B-GOOGL_USDC", "B-GOOG_USDC", "B-GOOGLE_USDC", "B-GOOGL_INR", "B-GOOG_INR", "B-GOOGLE_INR"],
+                    "AMZN": ["B-AMZN_USDC", "B-AMZN_INR", "B-AMZN_USDT"],
+                    "INTC": ["B-INTC_USDC", "B-INTC_INR", "B-INTC_USDT"],
+                    # SpaceX is not assumed tradable; only an exact active instrument can ever match.
+                    "SPCX": ["B-SPCX_USDC", "B-SPACEX_USDC", "B-SPCX_INR", "B-SPACEX_INR"],
+                }
+                terms = aliases.get(str(item.get("instrument", "")).upper(), [])
             output.append({"id": str(item.get("pick_id", item.get("id", item.get("instrument", "pick")))),
                            "instrument": str(item.get("instrument", "Unknown")), "side": side,
                            "low": low, "high": high, "stop": stop, "target": target,
