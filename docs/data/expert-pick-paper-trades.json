@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-23T00:55:36.945854+00:00",
+  "updated_at": "2026-10-23T05:44:33.584222+00:00",
   "mode": "PAPER ONLY \u2014 no live orders",
   "starting_equity_inr": 10000.0,
   "risk_per_trade_inr": 50.0,
@@ -17,7 +17,7 @@
     "directional_signals": 0,
     "signals_matching_pick": 0,
     "paper_entries_total": 0,
-    "last_run_at": "2026-10-23T00:55:36.945854+00:00",
+    "last_run_at": "2026-10-23T05:44:33.584222+00:00",
     "scheduled_interval_minutes": 10
   },
   "net_realized_pnl_inr": 0.0,
@@ -77,7 +77,7 @@
       ],
       "mapping_status": "MAPPED_EXACT",
       "entry_range": "4181.0\u20134244.0",
-      "live_price": 4036.76,
+      "live_price": 4032.38,
       "stop": 4291.0,
       "target": 4110.45,
       "valid_until": "2026-10-23",
@@ -106,7 +106,7 @@
       "exit_price": null,
       "exit_reason": null,
       "net_pnl_inr": null,
-      "note": "Live price 4036.76 outside entry range."
+      "note": "Live price 4032.38 outside entry range."
     },
     {
       "pick_id": "marketwind-sol-2026-10-19",
@@ -121,7 +121,7 @@
       ],
       "mapping_status": "MAPPED_EXACT",
       "entry_range": "104.46\u2013105.51",
-      "live_price": 103.98,
+      "live_price": 104.42,
       "stop": 103.68,
       "target": 106.69,
       "valid_until": "2026-10-23",
@@ -150,7 +150,7 @@
       "exit_price": null,
       "exit_reason": null,
       "net_pnl_inr": null,
-      "note": "Live price 103.98 outside entry range."
+      "note": "Live price 104.42 outside entry range."
     },
     {
       "pick_id": "marketwind-copper-2026-10-19",
@@ -165,7 +165,7 @@
       ],
       "mapping_status": "MAPPED_EXACT",
       "entry_range": "6.475\u20136.54",
-      "live_price": 6.415,
+      "live_price": 6.472,
       "stop": 6.385,
       "target": 6.666,
       "valid_until": "2026-10-20",
@@ -207,7 +207,7 @@
       ],
       "mapping_status": "MAPPED_EXACT",
       "entry_range": "96.99\u201397.91",
-      "live_price": 99.26,
+      "live_price": 100.48,
       "stop": 98.62,
       "target": 95.92,
       "valid_until": "2026-10-23",
@@ -236,7 +236,7 @@
       "exit_price": null,
       "exit_reason": null,
       "net_pnl_inr": null,
-      "note": "Live price 99.26 outside entry range."
+      "note": "Live price 100.48 outside entry range."
     },
     {
       "pick_id": "marketwind-xag-2026-10-19",
@@ -251,7 +251,7 @@
       ],
       "mapping_status": "MAPPED_EXACT",
       "entry_range": "56.93\u201357.5",
-      "live_price": 54.76,
+      "live_price": 54.55,
       "stop": 56.5,
       "target": 58.14,
       "valid_until": "2026-10-23",
@@ -280,7 +280,7 @@
       "exit_price": null,
       "exit_reason": null,
       "net_pnl_inr": null,
-      "note": "Live price 54.76 outside entry range."
+      "note": "Live price 54.55 outside entry range."
     },
     {
       "pick_id": "marketwind-link-2026-10-19",
@@ -295,29 +295,24 @@
       ],
       "mapping_status": "MAPPED_EXACT",
       "entry_range": "11.88\u201312.06",
-      "live_price": 11.993,
+      "live_price": 12.2,
       "stop": 12.195,
       "target": 11.678,
       "valid_until": "2026-10-24",
       "model_decision": "SKIP",
       "model_regime": "V2_WAIT",
-      "model_reason": "5m model does not confirm pick direction (SKIP)",
+      "model_reason": "Price is outside the Expert Pick entry range",
       "model_metrics": {
-        "model_5m": "SKIP",
-        "regime_5m": "UNCLEAR",
-        "model_15m": "SKIP",
-        "regime_15m": "UNCLEAR",
-        "net_reward_risk_estimate": 1.288,
-        "price_in_range": true
+        "price_in_range": false
       },
       "pick_direction": "SHORT",
-      "price_in_entry_range": true,
-      "paper_status": "WAITING_FOR_MODEL",
-      "signal_stage": "WAITING_FOR_MODEL",
+      "price_in_entry_range": false,
+      "paper_status": "WAITING_FOR_ENTRY",
+      "signal_stage": "WAITING_FOR_ENTRY",
       "entry_checks": {
         "signal_detected": false,
         "direction_matches": false,
-        "price_in_range": true,
+        "price_in_range": false,
         "paper_opened": false
       },
       "price_data_status": "OK",
@@ -329,7 +324,7 @@
       "exit_price": null,
       "exit_reason": null,
       "net_pnl_inr": null,
-      "note": "Price in range, but v2 says WAIT: 5m model does not confirm pick direction (SKIP); no entry."
+      "note": "Live price 12.2 outside entry range."
     },
     {
       "pick_id": "marketwind-meta-2026-10-19",
