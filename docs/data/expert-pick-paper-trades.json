@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-23T22:32:23.370154+00:00",
+  "updated_at": "2026-10-24T01:01:47.312875+00:00",
   "mode": "PAPER ONLY \u2014 no live orders",
   "starting_equity_inr": 10000.0,
   "risk_per_trade_inr": 50.0,
@@ -12,12 +12,12 @@
     "runner_completed": true,
     "prices_available": 6,
     "markets_mapped": 6,
-    "candle_data_ok": 5,
-    "model_evaluations": 5,
+    "candle_data_ok": 1,
+    "model_evaluations": 1,
     "directional_signals": 0,
     "signals_matching_pick": 0,
     "paper_entries_total": 0,
-    "last_run_at": "2026-10-23T22:32:23.370154+00:00",
+    "last_run_at": "2026-10-24T01:01:47.312875+00:00",
     "scheduled_interval_minutes": 10
   },
   "net_realized_pnl_inr": 0.0,
@@ -77,20 +77,18 @@
       ],
       "mapping_status": "MAPPED_EXACT",
       "entry_range": "4181.0\u20134244.0",
-      "live_price": 4002.93,
+      "live_price": 3998.18,
       "stop": 4291.0,
       "target": 4110.45,
       "valid_until": "2026-10-23",
-      "model_decision": "SKIP",
-      "model_regime": "V2_WAIT",
-      "model_reason": "Price is outside the Expert Pick entry range",
-      "model_metrics": {
-        "price_in_range": false
-      },
+      "model_decision": "UNKNOWN",
+      "model_regime": "UNKNOWN",
+      "model_reason": "Model not evaluated",
+      "model_metrics": {},
       "pick_direction": "SHORT",
       "price_in_entry_range": false,
-      "paper_status": "WAITING_FOR_ENTRY",
-      "signal_stage": "WAITING_FOR_ENTRY",
+      "paper_status": "EXPIRED",
+      "signal_stage": "EXPIRED",
       "entry_checks": {
         "signal_detected": false,
         "direction_matches": false,
@@ -98,7 +96,7 @@
         "paper_opened": false
       },
       "price_data_status": "OK",
-      "candle_data_status": "OK",
+      "candle_data_status": "ERROR_OR_NOT_CHECKED",
       "signal_detected": false,
       "signal_matches_pick": false,
       "entry": null,
@@ -106,7 +104,7 @@
       "exit_price": null,
       "exit_reason": null,
       "net_pnl_inr": null,
-      "note": "Live price 4002.93 outside entry range."
+      "note": "Expert Pick validity expired; no new entries."
     },
     {
       "pick_id": "marketwind-sol-2026-10-19",
@@ -121,20 +119,18 @@
       ],
       "mapping_status": "MAPPED_EXACT",
       "entry_range": "104.46\u2013105.51",
-      "live_price": 103.07,
+      "live_price": 102.33,
       "stop": 103.68,
       "target": 106.69,
       "valid_until": "2026-10-23",
-      "model_decision": "SKIP",
-      "model_regime": "V2_WAIT",
-      "model_reason": "Price is outside the Expert Pick entry range",
-      "model_metrics": {
-        "price_in_range": false
-      },
+      "model_decision": "UNKNOWN",
+      "model_regime": "UNKNOWN",
+      "model_reason": "Model not evaluated",
+      "model_metrics": {},
       "pick_direction": "LONG",
       "price_in_entry_range": false,
-      "paper_status": "WAITING_FOR_ENTRY",
-      "signal_stage": "WAITING_FOR_ENTRY",
+      "paper_status": "EXPIRED",
+      "signal_stage": "EXPIRED",
       "entry_checks": {
         "signal_detected": false,
         "direction_matches": false,
@@ -142,7 +138,7 @@
         "paper_opened": false
       },
       "price_data_status": "OK",
-      "candle_data_status": "OK",
+      "candle_data_status": "ERROR_OR_NOT_CHECKED",
       "signal_detected": false,
       "signal_matches_pick": false,
       "entry": null,
@@ -150,7 +146,7 @@
       "exit_price": null,
       "exit_reason": null,
       "net_pnl_inr": null,
-      "note": "Live price 103.07 outside entry range."
+      "note": "Expert Pick validity expired; no new entries."
     },
     {
       "pick_id": "marketwind-copper-2026-10-19",
@@ -165,7 +161,7 @@
       ],
       "mapping_status": "MAPPED_EXACT",
       "entry_range": "6.475\u20136.54",
-      "live_price": 6.499,
+      "live_price": 6.5,
       "stop": 6.385,
       "target": 6.666,
       "valid_until": "2026-10-20",
@@ -207,20 +203,18 @@
       ],
       "mapping_status": "MAPPED_EXACT",
       "entry_range": "96.99\u201397.91",
-      "live_price": 103.63,
+      "live_price": 103.68,
       "stop": 98.62,
       "target": 95.92,
       "valid_until": "2026-10-23",
-      "model_decision": "SKIP",
-      "model_regime": "V2_WAIT",
-      "model_reason": "Price is outside the Expert Pick entry range",
-      "model_metrics": {
-        "price_in_range": false
-      },
+      "model_decision": "UNKNOWN",
+      "model_regime": "UNKNOWN",
+      "model_reason": "Model not evaluated",
+      "model_metrics": {},
       "pick_direction": "SHORT",
       "price_in_entry_range": false,
-      "paper_status": "WAITING_FOR_ENTRY",
-      "signal_stage": "WAITING_FOR_ENTRY",
+      "paper_status": "EXPIRED",
+      "signal_stage": "EXPIRED",
       "entry_checks": {
         "signal_detected": false,
         "direction_matches": false,
@@ -228,7 +222,7 @@
         "paper_opened": false
       },
       "price_data_status": "OK",
-      "candle_data_status": "OK",
+      "candle_data_status": "ERROR_OR_NOT_CHECKED",
       "signal_detected": false,
       "signal_matches_pick": false,
       "entry": null,
@@ -236,7 +230,7 @@
       "exit_price": null,
       "exit_reason": null,
       "net_pnl_inr": null,
-      "note": "Live price 103.63 outside entry range."
+      "note": "Expert Pick validity expired; no new entries."
     },
     {
       "pick_id": "marketwind-xag-2026-10-19",
@@ -251,20 +245,18 @@
       ],
       "mapping_status": "MAPPED_EXACT",
       "entry_range": "56.93\u201357.5",
-      "live_price": 53.93,
+      "live_price": 53.74,
       "stop": 56.5,
       "target": 58.14,
       "valid_until": "2026-10-23",
-      "model_decision": "SKIP",
-      "model_regime": "V2_WAIT",
-      "model_reason": "Price is outside the Expert Pick entry range",
-      "model_metrics": {
-        "price_in_range": false
-      },
+      "model_decision": "UNKNOWN",
+      "model_regime": "UNKNOWN",
+      "model_reason": "Model not evaluated",
+      "model_metrics": {},
       "pick_direction": "LONG",
       "price_in_entry_range": false,
-      "paper_status": "WAITING_FOR_ENTRY",
-      "signal_stage": "WAITING_FOR_ENTRY",
+      "paper_status": "EXPIRED",
+      "signal_stage": "EXPIRED",
       "entry_checks": {
         "signal_detected": false,
         "direction_matches": false,
@@ -272,7 +264,7 @@
         "paper_opened": false
       },
       "price_data_status": "OK",
-      "candle_data_status": "OK",
+      "candle_data_status": "ERROR_OR_NOT_CHECKED",
       "signal_detected": false,
       "signal_matches_pick": false,
       "entry": null,
@@ -280,7 +272,7 @@
       "exit_price": null,
       "exit_reason": null,
       "net_pnl_inr": null,
-      "note": "Live price 53.93 outside entry range."
+      "note": "Expert Pick validity expired; no new entries."
     },
     {
       "pick_id": "marketwind-link-2026-10-19",
@@ -295,7 +287,7 @@
       ],
       "mapping_status": "MAPPED_EXACT",
       "entry_range": "11.88\u201312.06",
-      "live_price": 11.823,
+      "live_price": 11.759,
       "stop": 12.195,
       "target": 11.678,
       "valid_until": "2026-10-24",
@@ -324,7 +316,7 @@
       "exit_price": null,
       "exit_reason": null,
       "net_pnl_inr": null,
-      "note": "Live price 11.823 outside entry range."
+      "note": "Live price 11.759 outside entry range."
     },
     {
       "pick_id": "marketwind-meta-2026-10-19",
