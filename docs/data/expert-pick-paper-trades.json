@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-19T07:56:26.065233+00:00",
+  "updated_at": "2026-11-19T17:07:08.064432+00:00",
   "mode": "PAPER ONLY \u2014 no live orders",
   "starting_equity_inr": 10000.0,
   "risk_per_trade_inr": 50.0,
@@ -10,14 +10,14 @@
   "execution_mode": "paper_only",
   "health": {
     "runner_completed": true,
-    "prices_available": 6,
-    "markets_mapped": 6,
+    "prices_available": 0,
+    "markets_mapped": 0,
     "candle_data_ok": 0,
     "model_evaluations": 0,
     "directional_signals": 0,
     "signals_matching_pick": 0,
     "paper_entries_total": 0,
-    "last_run_at": "2026-11-19T07:56:26.065233+00:00",
+    "last_run_at": "2026-11-19T17:07:08.064432+00:00",
     "scheduled_interval_minutes": 10
   },
   "net_realized_pnl_inr": 0.0,
@@ -65,19 +65,17 @@
     {
       "pick_id": "marketwind-xau-2026-10-19",
       "instrument": "XAU",
-      "symbol": "B-XAU_USDT",
+      "symbol": null,
       "side": "SHORT",
       "mapping_candidates_checked": [
         "B-XAU_USDT",
         "B-XAU_USDC",
         "B-XAU_INR"
       ],
-      "active_candidate_matches": [
-        "B-XAU_USDT"
-      ],
-      "mapping_status": "MAPPED_EXACT",
+      "active_candidate_matches": [],
+      "mapping_status": "NO_EXACT_ACTIVE_MATCH",
       "entry_range": "4181.0\u20134244.0",
-      "live_price": 3743.05,
+      "live_price": null,
       "stop": 4291.0,
       "target": 4110.45,
       "valid_until": "2026-10-23",
@@ -87,16 +85,16 @@
       "model_metrics": {},
       "pick_direction": "SHORT",
       "price_in_entry_range": false,
-      "paper_status": "EXPIRED",
-      "signal_stage": "EXPIRED",
+      "paper_status": "UNMAPPED_MARKET",
+      "signal_stage": "UNMAPPED_MARKET",
       "entry_checks": {
         "signal_detected": false,
         "direction_matches": false,
         "price_in_range": false,
         "paper_opened": false
       },
-      "price_data_status": "OK",
-      "candle_data_status": "ERROR_OR_NOT_CHECKED",
+      "price_data_status": "UNMAPPED",
+      "candle_data_status": "UNMAPPED",
       "signal_detected": false,
       "signal_matches_pick": false,
       "entry": null,
@@ -104,22 +102,20 @@
       "exit_price": null,
       "exit_reason": null,
       "net_pnl_inr": null,
-      "note": "Expert Pick validity expired; no new entries."
+      "note": "No exact market ID verified in active instruments; no paper order opened."
     },
     {
       "pick_id": "marketwind-sol-2026-10-19",
       "instrument": "SOL",
-      "symbol": "B-SOL_USDT",
+      "symbol": null,
       "side": "LONG",
       "mapping_candidates_checked": [
         "B-SOL_USDT"
       ],
-      "active_candidate_matches": [
-        "B-SOL_USDT"
-      ],
-      "mapping_status": "MAPPED_EXACT",
+      "active_candidate_matches": [],
+      "mapping_status": "NO_EXACT_ACTIVE_MATCH",
       "entry_range": "104.46\u2013105.51",
-      "live_price": 74.91,
+      "live_price": null,
       "stop": 103.68,
       "target": 106.69,
       "valid_until": "2026-10-23",
@@ -129,16 +125,16 @@
       "model_metrics": {},
       "pick_direction": "LONG",
       "price_in_entry_range": false,
-      "paper_status": "EXPIRED",
-      "signal_stage": "EXPIRED",
+      "paper_status": "UNMAPPED_MARKET",
+      "signal_stage": "UNMAPPED_MARKET",
       "entry_checks": {
         "signal_detected": false,
         "direction_matches": false,
         "price_in_range": false,
         "paper_opened": false
       },
-      "price_data_status": "OK",
-      "candle_data_status": "ERROR_OR_NOT_CHECKED",
+      "price_data_status": "UNMAPPED",
+      "candle_data_status": "UNMAPPED",
       "signal_detected": false,
       "signal_matches_pick": false,
       "entry": null,
@@ -146,22 +142,20 @@
       "exit_price": null,
       "exit_reason": null,
       "net_pnl_inr": null,
-      "note": "Expert Pick validity expired; no new entries."
+      "note": "No exact market ID verified in active instruments; no paper order opened."
     },
     {
       "pick_id": "marketwind-copper-2026-10-19",
       "instrument": "COPPER",
-      "symbol": "B-COPPER_USDT",
+      "symbol": null,
       "side": "LONG",
       "mapping_candidates_checked": [
         "B-COPPER_USDT"
       ],
-      "active_candidate_matches": [
-        "B-COPPER_USDT"
-      ],
-      "mapping_status": "MAPPED_EXACT",
+      "active_candidate_matches": [],
+      "mapping_status": "NO_EXACT_ACTIVE_MATCH",
       "entry_range": "6.475\u20136.54",
-      "live_price": 5.776,
+      "live_price": null,
       "stop": 6.385,
       "target": 6.666,
       "valid_until": "2026-10-20",
@@ -171,16 +165,16 @@
       "model_metrics": {},
       "pick_direction": "LONG",
       "price_in_entry_range": false,
-      "paper_status": "EXPIRED",
-      "signal_stage": "EXPIRED",
+      "paper_status": "UNMAPPED_MARKET",
+      "signal_stage": "UNMAPPED_MARKET",
       "entry_checks": {
         "signal_detected": false,
         "direction_matches": false,
         "price_in_range": false,
         "paper_opened": false
       },
-      "price_data_status": "OK",
-      "candle_data_status": "ERROR_OR_NOT_CHECKED",
+      "price_data_status": "UNMAPPED",
+      "candle_data_status": "UNMAPPED",
       "signal_detected": false,
       "signal_matches_pick": false,
       "entry": null,
@@ -188,22 +182,20 @@
       "exit_price": null,
       "exit_reason": null,
       "net_pnl_inr": null,
-      "note": "Expert Pick validity expired; no new entries."
+      "note": "No exact market ID verified in active instruments; no paper order opened."
     },
     {
       "pick_id": "marketwind-cl-2026-10-19",
       "instrument": "CL",
-      "symbol": "B-CL_USDT",
+      "symbol": null,
       "side": "SHORT",
       "mapping_candidates_checked": [
         "B-CL_USDT"
       ],
-      "active_candidate_matches": [
-        "B-CL_USDT"
-      ],
-      "mapping_status": "MAPPED_EXACT",
+      "active_candidate_matches": [],
+      "mapping_status": "NO_EXACT_ACTIVE_MATCH",
       "entry_range": "96.99\u201397.91",
-      "live_price": 82.33,
+      "live_price": null,
       "stop": 98.62,
       "target": 95.92,
       "valid_until": "2026-10-23",
@@ -213,16 +205,16 @@
       "model_metrics": {},
       "pick_direction": "SHORT",
       "price_in_entry_range": false,
-      "paper_status": "EXPIRED",
-      "signal_stage": "EXPIRED",
+      "paper_status": "UNMAPPED_MARKET",
+      "signal_stage": "UNMAPPED_MARKET",
       "entry_checks": {
         "signal_detected": false,
         "direction_matches": false,
         "price_in_range": false,
         "paper_opened": false
       },
-      "price_data_status": "OK",
-      "candle_data_status": "ERROR_OR_NOT_CHECKED",
+      "price_data_status": "UNMAPPED",
+      "candle_data_status": "UNMAPPED",
       "signal_detected": false,
       "signal_matches_pick": false,
       "entry": null,
@@ -230,22 +222,20 @@
       "exit_price": null,
       "exit_reason": null,
       "net_pnl_inr": null,
-      "note": "Expert Pick validity expired; no new entries."
+      "note": "No exact market ID verified in active instruments; no paper order opened."
     },
     {
       "pick_id": "marketwind-xag-2026-10-19",
       "instrument": "XAG",
-      "symbol": "B-XAG_USDT",
+      "symbol": null,
       "side": "LONG",
       "mapping_candidates_checked": [
         "B-XAG_USDT"
       ],
-      "active_candidate_matches": [
-        "B-XAG_USDT"
-      ],
-      "mapping_status": "MAPPED_EXACT",
+      "active_candidate_matches": [],
+      "mapping_status": "NO_EXACT_ACTIVE_MATCH",
       "entry_range": "56.93\u201357.5",
-      "live_price": 45.51,
+      "live_price": null,
       "stop": 56.5,
       "target": 58.14,
       "valid_until": "2026-10-23",
@@ -255,16 +245,16 @@
       "model_metrics": {},
       "pick_direction": "LONG",
       "price_in_entry_range": false,
-      "paper_status": "EXPIRED",
-      "signal_stage": "EXPIRED",
+      "paper_status": "UNMAPPED_MARKET",
+      "signal_stage": "UNMAPPED_MARKET",
       "entry_checks": {
         "signal_detected": false,
         "direction_matches": false,
         "price_in_range": false,
         "paper_opened": false
       },
-      "price_data_status": "OK",
-      "candle_data_status": "ERROR_OR_NOT_CHECKED",
+      "price_data_status": "UNMAPPED",
+      "candle_data_status": "UNMAPPED",
       "signal_detected": false,
       "signal_matches_pick": false,
       "entry": null,
@@ -272,22 +262,20 @@
       "exit_price": null,
       "exit_reason": null,
       "net_pnl_inr": null,
-      "note": "Expert Pick validity expired; no new entries."
+      "note": "No exact market ID verified in active instruments; no paper order opened."
     },
     {
       "pick_id": "marketwind-link-2026-10-19",
       "instrument": "LINK",
-      "symbol": "B-LINK_USDT",
+      "symbol": null,
       "side": "SHORT",
       "mapping_candidates_checked": [
         "B-LINK_USDT"
       ],
-      "active_candidate_matches": [
-        "B-LINK_USDT"
-      ],
-      "mapping_status": "MAPPED_EXACT",
+      "active_candidate_matches": [],
+      "mapping_status": "NO_EXACT_ACTIVE_MATCH",
       "entry_range": "11.88\u201312.06",
-      "live_price": 9.168,
+      "live_price": null,
       "stop": 12.195,
       "target": 11.678,
       "valid_until": "2026-10-24",
@@ -297,16 +285,16 @@
       "model_metrics": {},
       "pick_direction": "SHORT",
       "price_in_entry_range": false,
-      "paper_status": "EXPIRED",
-      "signal_stage": "EXPIRED",
+      "paper_status": "UNMAPPED_MARKET",
+      "signal_stage": "UNMAPPED_MARKET",
       "entry_checks": {
         "signal_detected": false,
         "direction_matches": false,
         "price_in_range": false,
         "paper_opened": false
       },
-      "price_data_status": "OK",
-      "candle_data_status": "ERROR_OR_NOT_CHECKED",
+      "price_data_status": "UNMAPPED",
+      "candle_data_status": "UNMAPPED",
       "signal_detected": false,
       "signal_matches_pick": false,
       "entry": null,
@@ -314,7 +302,7 @@
       "exit_price": null,
       "exit_reason": null,
       "net_pnl_inr": null,
-      "note": "Expert Pick validity expired; no new entries."
+      "note": "No exact market ID verified in active instruments; no paper order opened."
     },
     {
       "pick_id": "marketwind-meta-2026-10-19",
